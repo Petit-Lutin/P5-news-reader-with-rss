@@ -17,8 +17,9 @@ class CreateFlowsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('url');
-            $table->unsignedBigInteger('categorie_id');
-            $table->foreign('categorie_id')
+
+            $table->unsignedBigInteger('category_id'); //clé étrangère : l'id de la catégorie à laquelle appartient le flux
+            $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('restrict')
