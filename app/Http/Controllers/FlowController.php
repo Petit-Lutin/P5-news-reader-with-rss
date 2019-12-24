@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Flow;
 use Illuminate\Http\Request;
 
 class FlowController extends Controller
@@ -13,8 +15,11 @@ class FlowController extends Controller
      */
     public function index()
     {
-        $flows = Flows::all();
-        return view('index', compact('flows'));
+        $flows = Flow::orderBy('name')->get();
+//        return view('index', compact('flows'));
+        return view('index')
+            ->withFlows($flows)
+            ->withSuperTruc('bonjour');
     }
 
     /**
@@ -24,24 +29,28 @@ class FlowController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::orderBy('name')->get();
+        return view('flows/create')->withCategories($categories);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+//        $flow=new Flow($request->all());
+//        $flow->save();
+        $flow=Flow::create($request->all());
+        return redirect('/index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,7 +61,7 @@ class FlowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -63,8 +72,8 @@ class FlowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +84,7 @@ class FlowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

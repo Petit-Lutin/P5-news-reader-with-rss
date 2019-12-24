@@ -22,7 +22,7 @@ class CreateFlowsTable extends Migration
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->onUpdate('restrict');
             $table->timestamps();
         });
