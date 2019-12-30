@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Flow extends FormRequest
+class FlowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class Flow extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:100'],
+            'title' => ['required', 'between:2,50'],
             'category' => ['required', 'string'],
+            'url' => ['required', 'string', 'min:10'],
         ];
     }
 }

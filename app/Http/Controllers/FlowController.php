@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Flow;
 use Illuminate\Http\Request;
+use App\Http\Requests\FlowRequest;
 
 class FlowController extends Controller
 {
@@ -39,7 +40,8 @@ class FlowController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FlowRequest $request)
+
     {
 //        $flow=new Flow($request->all());
 //        $flow->save();

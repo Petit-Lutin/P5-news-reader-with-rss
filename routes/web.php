@@ -19,8 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::resource('flows', 'FlowController');
 
 Route::get('/index', 'FlowController@index')->name('index');
 Route::get('/flows/create', 'FlowController@create');
 Route::post('/flows/create', 'FlowController@store');
+
+//Route::get('/index', 'CategoryController@index');
+Route::get('/categories/create', 'CategoryController@create');
+Route::post('/categories/create', 'CategoryController@store');
