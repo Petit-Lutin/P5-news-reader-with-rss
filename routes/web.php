@@ -26,4 +26,5 @@ Route::post('/flows/create', 'FlowController@store');
 
 //Route::get('/index', 'CategoryController@index');
 Route::get('/categories/create', 'CategoryController@create');
+Route::get('/test', 'TestController@index');
 Route::post('/categories/create', 'CategoryController@store');

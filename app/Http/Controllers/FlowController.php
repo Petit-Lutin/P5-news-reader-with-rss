@@ -9,6 +9,12 @@ use App\Http\Requests\FlowRequest;
 
 class FlowController extends Controller
 {
+    public function __construct()
+    {
+//        parent::__construct();
+        $this->middleware('auth', ['except' => []]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +36,7 @@ class FlowController extends Controller
      */
     public function create()
     {
-        $categories=Category::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         return view('flows/create')->withCategories($categories);
     }
 
@@ -45,7 +51,7 @@ class FlowController extends Controller
     {
 //        $flow=new Flow($request->all());
 //        $flow->save();
-        $flow=Flow::create($request->all());
+        $flow = Flow::create($request->all());
         return redirect('/index');
     }
 
