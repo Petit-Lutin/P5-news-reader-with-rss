@@ -4,7 +4,7 @@
     <p>Nouvelle catégorie</p>
     <form method="POST">
         {{csrf_field()}}
-        <input name="name" type="text" required>
+        <input name="name" type="text" value="{{old("name",$category->name)}}" required>
 {{--        <select name="category_id" required>--}}
 {{--            <option value="" disabled>Choisir une catégorie</option>--}}
 

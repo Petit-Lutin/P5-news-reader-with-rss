@@ -45,13 +45,13 @@ class TestRssController extends Controller
     {
         $flow = Flow::findOrFail($id);
         $xml = $flow->url;
-
+//        $xml=("http://news.google.com/news?ned=us&topic=h&output=rss");
         //
 //find out which feed was selected
 
 
         $news = [];
-        $xmlDoc = new DOMDocument();
+        $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
         $channels = $xmlDoc->getElementsByTagName('channel');
         foreach ($channels as $channel) {

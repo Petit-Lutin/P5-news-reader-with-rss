@@ -1,9 +1,9 @@
 <?php
 
+use App\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
-class FirstUserSeeder extends Seeder
+class FirstFlowsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,9 @@ class FirstUserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {echo 'user';
-        \App\User::create(['name'=>'demo', 'email'=>'demo@demo.fr', 'password'=>Hash::make('demo')]);
+    {
+        echo 'flow';
+        \App\Flow::create(['name' => 'Google', 'url' => 'http://news.google.com/news?ned=us&topic=h&output=rss', 'category_id' => '1']);
     }
 }
+

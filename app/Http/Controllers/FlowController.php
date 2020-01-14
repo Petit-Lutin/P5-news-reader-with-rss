@@ -11,7 +11,7 @@ class FlowController extends Controller
 {
     public function __construct()
     {
-//        parent::__construct();
+//      On doit être identifié pour pouvoir interagir avec les flux RSS
         $this->middleware('auth', ['except' => []]);
     }
 
@@ -22,11 +22,13 @@ class FlowController extends Controller
      */
     public function index()
     {
-        $flows = Flow::orderBy('name')->get();
-//        return view('index', compact('flows'));
+//        $flows = Flow::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+
         return view('index')
-            ->withFlows($flows)
-            ->withSuperTruc('bonjour');
+//            ->withFlows($flows)
+            ->withCategories($categories);
+//            ->withSuperTruc('bonjour');
     }
 
     /**
@@ -49,8 +51,6 @@ class FlowController extends Controller
     public function store(FlowRequest $request)
 
     {
-//        $flow=new Flow($request->all());
-//        $flow->save();
         $flow = Flow::create($request->all());
         return redirect('/index');
     }
@@ -61,10 +61,17 @@ class FlowController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // id
     {
-        //
+        $flow = Flow::find($id)->get();
+////        return view('flows/show', compact('flow'))
+        return View::make('flows/show')
+            ->with('flow', $flow);
+//
+
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -72,10 +79,23 @@ class FlowController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
-        //
+        $categories = Category::orderBy('name')->get();
+
+        $flow = null;
+        try {
+            $flow = Flow::findOrFail($id);
+        } catch (\Exception $exception) {
+            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            die();
+        }
+        return view('flows/edit')
+            ->withFlow($flow)
+            ->withCategories($categories);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -84,9 +104,22 @@ class FlowController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(FlowRequest $request, $id)
     {
-        //
+        try {
+            $flow =Flow::findOrFail($id);
+        } catch (\Exception $exception) {
+            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            die();
+        }
+        $flow->name=$request->input("name");
+        $flow->url=$request->input("url");
+        $flow->category_id=$request->input("category_id");
+        $flow->save();
+//        echo "enregistrer";
+//        dd("enregistrer");
+        return redirect('/index');
     }
 
     /**
@@ -95,7 +128,8 @@ class FlowController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
     }

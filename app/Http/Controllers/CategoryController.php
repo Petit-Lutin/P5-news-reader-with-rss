@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Flow;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories=Category::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
         return view('categories/create')->withCategories($categories);
     }
 
@@ -34,11 +35,12 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category = Category::create($request->all());
         return redirect('/index');
     }
+
     /**
      * Display the specified resource.
      *
@@ -58,7 +60,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = null;
+        try {
+            $category = Category::findOrFail($id);
+        } catch (\Exception $exception) {
+            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            die();
+        }
+        return view('categories/edit')->withCategory($category);
     }
 
     /**
@@ -68,9 +77,21 @@ class CategoryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+        } catch (\Exception $exception) {
+            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            die();
+        }
+        $category->name=$request->input("name");
+        $category->save();
+//        echo "enregistrer";
+//        dd("enregistrer");
+//        return view('categories/edit')->withCategory($category);
+        return redirect('/index');
+
     }
 
     /**
