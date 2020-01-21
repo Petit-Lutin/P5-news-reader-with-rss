@@ -20,7 +20,7 @@
 
                     @foreach($categories as $categorie)
                         <option value="{{$categorie->id}}"
-                                @if (old("category_id","")==$categorie->id) selected @endif
+                                @if (old("category_id",$categorie->id)==$categorie->id) selected @endif
                         >{{$categorie->name}}</option>
                     @endforeach
                 </select>

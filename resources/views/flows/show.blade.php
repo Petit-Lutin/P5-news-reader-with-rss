@@ -14,4 +14,13 @@
        </div>
 
    </div>
+
+{{--    <script !src="">--}}
+{{--        //        récupération des news contenues dans les flux--}}
+{{--        loadNews() {--}}
+{{--            ajaxGet('https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=1a65ebf23b0482781cbddeaa74a7c535179df94a', (response) => {--}}
+{{--                var newsJs = JSON.parse(response)--}}
+{{--            }--}}
+{{--        };--}}
+{{--    </script>--}}
 @endsection

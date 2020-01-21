@@ -1,11 +1,11 @@
 @extends('layouts/app')
 @section('content')
-{{--    <h1>Flux</h1>--}}
-{{--    <ul>--}}
-{{--        @foreach($flows as $flow)--}}
-{{--            <li>{{$flow->name}} <a href="{{$flow->url}}">lien</a></li>--}}
-{{--        @endforeach--}}
-{{--    </ul>--}}
+    {{--    <h1>Flux</h1>--}}
+    {{--    <ul>--}}
+    {{--        @foreach($flows as $flow)--}}
+    {{--            <li>{{$flow->name}} <a href="{{$flow->url}}">lien</a></li>--}}
+    {{--        @endforeach--}}
+    {{--    </ul>--}}
 
     <div class="card">
         <header class="card-header">
@@ -47,15 +47,38 @@
                 </table>
 
                 @foreach($categories as $category)
-                    <h2>{{$category->name}} <small><a href="/categories/edit/{{$category->id}}">Modifier</a></small></h2>
+                    <h2>{{$category->name}} <small><a href="/categories/edit/{{$category->id}}">Modifier</a></small>
+                    </h2>
                     <ul>
                         @foreach($category->flowsOrderBy as $flow)
-                            <li>{{$flow->name}} <small><a href="/flows/edit/{{$flow->id}}">Modifier</a></small></li>
-                            @endforeach
+                            <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a> <small><a
+                                        href="/flows/edit/{{$flow->id}}">Modifier</a></small></li>
+                        @endforeach
                     </ul>
 
                 @endforeach
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        //script vue js
+
+        // Make a request for a user with a given ID
+        axios.get('/getjson/1')
+            .then(function (response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+        // </script>
 @endsection

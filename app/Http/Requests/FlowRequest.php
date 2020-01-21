@@ -23,11 +23,17 @@ class FlowRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
+
 //            'title' => ['required', 'between:2,50'],
             'name' => 'bail|required|between:2,50',
             'category_id' => 'required|numeric',
             'url' => 'required|string|min:10', //faire regex !  [http](s)\:\/\/[a-zA-Z]{5,}
         ];
+        if ($this->input('category_id') === '-1') {
+            $rules['category_name'] = 'bail|required|between:2,50';
+        }
+
+        return $rules;
     }
 }
