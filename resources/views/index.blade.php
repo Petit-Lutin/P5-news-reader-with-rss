@@ -16,11 +16,7 @@
                 <table class="table is-hoverable">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nom</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <a class="btn btn-primary" href="/flows/create">Ajouter un site</a>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,40 +41,44 @@
 
                     </tbody>
                 </table>
+                <div class="indexContent">
+                    <div class="flowsList">
+                        @foreach($categories as $category)
+                            <h2>{{$category->name}} <small><a
+                                        href="/categories/edit/{{$category->id}}">Modifier</a></small>
+                            </h2>
+                            <ul>
+                                @foreach($category->flowsOrderBy as $flow)
+                                    <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a> <small><a
+                                                href="/flows/edit/{{$flow->id}}">Modifier</a></small></li>
+                                @endforeach
+                            </ul>
 
-                @foreach($categories as $category)
-                    <h2>{{$category->name}} <small><a href="/categories/edit/{{$category->id}}">Modifier</a></small>
-                    </h2>
-                    <ul>
-                        @foreach($category->flowsOrderBy as $flow)
-                            <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a> <small><a
-                                        href="/flows/edit/{{$flow->id}}">Modifier</a></small></li>
                         @endforeach
-                    </ul>
+                    </div>
 
-                @endforeach
+                    <div class="flowsContent">bla</div>
+                </div>
             </div>
-        </div>
-    </div>
-@endsection
+            @endsection
 
-@section('scripts')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        //script vue js
+            @section('scripts')
+                <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                <script>
+                    //script vue js
 
-        // Make a request for a user with a given ID
-        axios.get('/getjson/1')
-            .then(function (response) {
-                // handle success
-                console.log(response);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function () {
-                // always executed
-            });
-        // </script>
+                    // Make a request for a user with a given ID
+                    axios.get('/getjson/1')
+                        .then(function (response) {
+                            // handle success
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            // always executed
+                        });
+                    // </script>
 @endsection

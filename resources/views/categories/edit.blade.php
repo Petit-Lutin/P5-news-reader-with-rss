@@ -1,7 +1,7 @@
 @extends('layouts/app')
 @section('content')
     <h2>Organiser les catégories</h2>
-    <p>Nouvelle catégorie</p>
+    <p>Modifier une catégorie</p>
     <form method="POST">
         {{csrf_field()}}
         <input name="name" type="text" value="{{old("name",$category->name)}}" required>

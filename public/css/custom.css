@@ -1,0 +1,8 @@
+.indexContent {
+    display: flex;
+}
+
+.flowsContent {
+    border-left: 1px solid #3495e3;
+    padding: 5px;
+}
