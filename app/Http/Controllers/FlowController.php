@@ -116,15 +116,21 @@ class FlowController extends Controller
         try {
             $flow = Flow::findOrFail($id);
         } catch (\Exception $exception) {
-            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            echo $exception->getMessage(); //todo: faire une vue d'erreur
             die();
         }
-        $flow->name = $request->input("name");
-        $flow->url = $request->input("url");
-        $flow->category_id = $request->input("category_id");
-        $flow->save();
-//        echo "enregistrer";
-//        dd("enregistrer");
+        $inputs = $request->all();
+        if ($request->input('category_id') == '-1') {
+            $category = Category::create(['name' => $request->input('category_name')]);
+            $inputs ['category_id'] = $category->id;
+        }
+//        dd($inputs);
+        $flow = Flow::create($inputs);
+//        $flow->name = $request->input("name");
+//        $flow->url = $request->input("url");
+//        $flow->category_id = $request->input("category_id");
+//        $flow->save();
+
         return redirect('/index');
     }
 

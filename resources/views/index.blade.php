@@ -57,7 +57,11 @@
                         @endforeach
                     </div>
 
-                    <div class="flowsContent">bla</div>
+                    <div id="flowsContent">bla
+                        <ul>
+                            <li v-for="new in news"> @{{new.title}} <a href="/@{{new.link}}">@{{new.link}}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             @endsection
@@ -66,7 +70,23 @@
                 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
                 <script>
                     //script vue js
-
+                    var vue = new Vue({
+                        el: "#flowsContent",
+                        data: {
+                            news:
+                                [ {title: "title1", link: "link1"},
+                                [ {title: "title2", link: "link2"},
+                                [ {title: "title3", link: "link3"},
+                                    // {titles: ['orange', 'banane', 'poire']},
+                                    // {links: ['link1', 'link2', 'link3']}]
+                            // ,
+                            // methods: {
+                            //     add(){
+                            //         this.fruits.push(this.texte)
+                            //
+                            //     }
+                        }
+                    });
                     // Make a request for a user with a given ID
                     axios.get('/getjson/1')
                         .then(function (response) {
