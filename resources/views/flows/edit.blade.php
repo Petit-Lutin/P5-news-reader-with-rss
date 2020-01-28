@@ -19,15 +19,15 @@
                         class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span> @endif
 
                     <select class="form-control" id="mySelect" name="category_id" required>
-                        <option value="{{old("category_id", $flow->category_id)}}" disabled selected>Choisir une
+                        <option value="" disabled selected>Choisir une
                             catégorie
                         </option>
                         <option value="-1" onclick="displayNewCategory()">Nouvelle catégorie</option>
 
                         @foreach($categories as $categorie)
-                            <option value="{{$categorie->id}}"
-                                    @if (old("category_id",$categorie->id)==$categorie->id) selected
-                                    onclick="displayNewCategory()" @endif
+                            <option value="{{$categorie->id}}" onclick="displayNewCategory()"
+                                    @if (old("category_id",$flow->category_id)==$categorie->id) selected
+                                     @endif
                             >{{$categorie->name}}</option>
                         @endforeach
                     </select>

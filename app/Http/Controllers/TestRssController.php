@@ -62,10 +62,8 @@ class TestRssController extends Controller
                 ->item(0)->childNodes->item(0)->nodeValue;
             $channel_desc = $channel->getElementsByTagName('description')
                 ->item(0)->childNodes->item(0)->nodeValue;
-            array_push($news, [
-                "channel_title" => $channel_title,
-                "channel_link" => $channel_link,
-                "channel_description" => $channel_desc]);
+
+            $articles = [];
 
 
             // les articles et informations contenus dans le flux
@@ -77,12 +75,24 @@ class TestRssController extends Controller
                     ->item(0)->childNodes->item(0)->nodeValue;
                 $item_desc = $x->item($i)->getElementsByTagName('description')
                     ->item(0)->childNodes->item(0)->nodeValue;
-                array_push($news, [
+                array_push($articles, [
                     "article_title" => $item_title,
                     "article_link" => $item_link,
                     "article_description" => $item_desc
                 ]);
             }
+            array_push($news, [
+                "channel_title" => $channel_title,
+                "channel_link" => $channel_link,
+                "channel_description" => $channel_desc,
+                "news" => $articles
+            ]);
+//            array_push($news, [
+//            $news["channel_title"] = $channel_title;
+//            $news["channel_link"] = $channel_link;
+//            $news["channel_description"] = $channel_desc;
+//            $news["news"] = $articles;
+
         }
 
 

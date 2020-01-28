@@ -24,10 +24,13 @@ class FlowController extends Controller
     {
 //        $flows = Flow::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
-
+        foreach ($categories as $category) {
+            $category->flows;
+        }
         return view('index')
 //            ->withFlows($flows)
-            ->withCategories($categories);
+            ->withCategories($categories)
+            ->withJsonCategories(json_encode($categories));
 //            ->withSuperTruc('bonjour');
     }
 
@@ -125,11 +128,14 @@ class FlowController extends Controller
             $inputs ['category_id'] = $category->id;
         }
 //        dd($inputs);
-        $flow = Flow::create($inputs);
-//        $flow->name = $request->input("name");
-//        $flow->url = $request->input("url");
-//        $flow->category_id = $request->input("category_id");
-//        $flow->save();
+//        $flow = Flow::create($inputs);
+//        $flow->name=$inputs['name'];
+//        $flow->name=$inputs['name'];
+//        $flow->name=$inputs['name'];
+        $flow->name = $inputs["name"];
+        $flow->url = $inputs["url"];
+        $flow->category_id = $inputs["category_id"];
+        $flow->save();
 
         return redirect('/index');
     }

@@ -57,9 +57,11 @@
                         @endforeach
                     </div>
 
-                    <div id="flowsContent">bla
+                    <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
+                        date décroissante.
                         <ul>
-                            <li v-for="new in news"> @{{new.title}} <a href="/@{{new.link}}">@{{new.link}}</a></li>
+                            <li v-for="n in news"> @{{n.article_title}} <a v-bind:href="n.article_link">@{{n.article_link}}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -73,32 +75,41 @@
                     var vue = new Vue({
                         el: "#flowsContent",
                         data: {
-                            news:
-                                [ {title: "title1", link: "link1"},
-                                [ {title: "title2", link: "link2"},
-                                [ {title: "title3", link: "link3"},
-                                    // {titles: ['orange', 'banane', 'poire']},
-                                    // {links: ['link1', 'link2', 'link3']}]
+                            news: [
+                                {article_title: "title1", article_link: "link1"},
+                                {article_title: "title2", article_link: "link2"},
+                                {article_title: "title3", article_link: "link3"}
+                            ],
+                            categories:{!!$jsonCategories!!},
+
+                            // {titles: ['orange', 'banane', 'poire']},
+                            // {links: ['link1', 'link2', 'link3']}]
                             // ,
                             // methods: {
                             //     add(){
                             //         this.fruits.push(this.texte)
                             //
                             //     }
+                        },
+                        mounted() {
+                            axios.get('/getjson/1')
+                                .then((response) => {
+                                    // handle success
+                                    this.news = response.data[0].news; //push pour pas écraser résultats
+
+                                    console.log(response.data[0].news);
+                                })
+                                .catch(function (error) {
+                                    // handle error
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                    // always executed
+                                });
                         }
+
                     });
                     // Make a request for a user with a given ID
-                    axios.get('/getjson/1')
-                        .then(function (response) {
-                            // handle success
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        })
-                        .finally(function () {
-                            // always executed
-                        });
+
                     // </script>
 @endsection
