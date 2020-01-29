@@ -50,7 +50,7 @@ class TestRssController extends Controller
 //find out which feed was selected
 
 
-        $news = [];
+        $news = []; //flux
         $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
         // les informations sur le flux
@@ -63,10 +63,12 @@ class TestRssController extends Controller
             $channel_desc = $channel->getElementsByTagName('description')
                 ->item(0)->childNodes->item(0)->nodeValue;
 
-            $articles = [];
+
 
 
             // les articles et informations contenus dans le flux
+            $articles = [];
+
             $x = $xmlDoc->getElementsByTagName('item');
             for ($i = 0; $i <= 4; $i++) {
                 $item_title = $x->item($i)->getElementsByTagName('title')
@@ -81,6 +83,7 @@ class TestRssController extends Controller
                     "article_description" => $item_desc
                 ]);
             }
+            // un flux et ses articles
             array_push($news, [
                 "channel_title" => $channel_title,
                 "channel_link" => $channel_link,

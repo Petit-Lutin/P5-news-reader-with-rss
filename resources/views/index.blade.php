@@ -96,7 +96,7 @@
                                 .then((response) => {
                                     // handle success
                                     this.news = response.data[0].news; //push pour pas écraser résultats
-
+                                   // this.count =this.news.push(response.data[0].news);
                                     console.log(response.data[0].news);
                                 })
                                 .catch(function (error) {
