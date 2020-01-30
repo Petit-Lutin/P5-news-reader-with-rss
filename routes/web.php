@@ -29,6 +29,7 @@ Route::get('/flows/show/{id}', 'FlowController@show');
 
 Route::get('/flows/edit/{id}', 'FlowController@edit');
 Route::post('/flows/edit/{id}', 'FlowController@update');
+Route::get('/flows/delete/{id}', 'FlowController@destroy');
 
 
 

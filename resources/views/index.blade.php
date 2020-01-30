@@ -49,8 +49,11 @@
                             </h2>
                             <ul>
                                 @foreach($category->flowsOrderBy as $flow)
-                                    <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a> <small><a
-                                                href="/flows/edit/{{$flow->id}}">Modifier</a></small></li>
+                                    <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a>
+                                        <small><a href="/flows/edit/{{$flow->id}}">Modifier</a></small>
+                                        <small><a href="/flows/delete/{{$flow->id}}" class="toConfirm"
+                                                  data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a> </small>
+                                       </li>
                                 @endforeach
                             </ul>
 
@@ -111,5 +114,18 @@
                     });
                     // Make a request for a user with a given ID
 
-                    // </script>
+                    //
+
+                    const mesBalises = document.querySelectorAll(".toConfirm");
+
+                    for (i = 0; i < mesBalises.length; i++) {
+                        mesBalises[i].addEventListener("click", (e) => {
+                            let message = e.currentTarget.getAttribute("data-message"); //affiche le message contenu dans l'attribut message du lien
+                            if (!confirm(message)) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }
+                        })
+                    }
+                </script>
 @endsection

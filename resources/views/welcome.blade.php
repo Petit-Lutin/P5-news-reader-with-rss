@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Tableau de bord</a>
+                        <a href="{{ url('/index') }}">Tableau de bord</a>
                     @else
                         <a href="{{ route('login') }}">Se connecter</a>
 

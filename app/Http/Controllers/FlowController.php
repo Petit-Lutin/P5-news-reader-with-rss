@@ -77,8 +77,6 @@ class FlowController extends Controller
         return View::make('flows/show')
             ->with('flow', $flow);
 //
-
-
     }
 
 
@@ -97,14 +95,13 @@ class FlowController extends Controller
         try {
             $flow = Flow::findOrFail($id);
         } catch (\Exception $exception) {
-            echo $exception->getMessage(); //plus tard faire une vue d'erreur
+            echo $exception->getMessage(); //todo: plus tard faire une vue d'erreur
             die();
         }
         return view('flows/edit')
             ->withFlow($flow)
             ->withCategories($categories);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -149,6 +146,9 @@ class FlowController extends Controller
     public
     function destroy($id)
     {
-        //
+        //public function destroy(Film $film)
+        $flow = Flow::findOrFail($id);
+        $flow->delete();
+        return back()->with('info', 'Le flux a bien été supprimé dans la base de données.');
     }
 }
