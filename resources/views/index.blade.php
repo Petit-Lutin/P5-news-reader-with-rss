@@ -63,7 +63,7 @@
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
                         <ul>
-                            <li v-for="n in news"> @{{n.article_title}} <a v-bind:href="n.article_link">@{{n.article_link}}</a>
+                            <li v-for="anew in news"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>, le @{{ anew.article_date }}
                             </li>
                         </ul>
                     </div>
@@ -79,7 +79,7 @@
                         el: "#flowsContent",
                         data: {
                             news: [
-                                {article_title: "title1", article_link: "link1"},
+                                {article_title: "title1", article_link: "link1", article_date: "date"},
                                 {article_title: "title2", article_link: "link2"},
                                 {article_title: "title3", article_link: "link3"}
                             ],
@@ -99,8 +99,16 @@
                                 .then((response) => {
                                     // handle success
                                     this.news = response.data[0].news; //push pour pas écraser résultats
-                                   // this.count =this.news.push(response.data[0].news);
-                                    console.log(response.data[0].news);
+                                    this.articles=this.news;
+                                    for (i=0;i<=4;i++){
+                                        this.article=this.articles[i];
+                                        // this.old
+                                        // todo:comparer les dates entre elles, si date + récente pour un même indice article, on ajoute l'article + vieux à old articles
+                                    }
+                                  // this.oldNews =this.news;
+                                  // this.fullNews=this.news.push(this.oldNews);
+                                  // this.total =this.news.push(response.data[0].news);
+                                    console.log(response.data[0].news[0]);
                                 })
                                 .catch(function (error) {
                                     // handle error

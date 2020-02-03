@@ -75,12 +75,15 @@ class TestRssController extends Controller
                     ->item(0)->childNodes->item(0)->nodeValue;
                 $item_link = $x->item($i)->getElementsByTagName('link')
                     ->item(0)->childNodes->item(0)->nodeValue;
+                $item_date = $x->item($i)->getElementsByTagName('pubDate')
+                    ->item(0)->childNodes->item(0)->nodeValue;
                 $item_desc = $x->item($i)->getElementsByTagName('description')
                     ->item(0)->childNodes->item(0)->nodeValue;
                 array_push($articles, [
                     "article_title" => $item_title,
                     "article_link" => $item_link,
-                    "article_description" => $item_desc
+                    "article_description" => $item_desc,
+                    "article_date" => $item_date
                 ]);
             }
             // un flux et ses articles

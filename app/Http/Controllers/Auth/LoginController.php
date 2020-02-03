@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/index'; // tableau de bord avec tous les flux de l'utilisateur
 
     /**
      * Create a new controller instance.
