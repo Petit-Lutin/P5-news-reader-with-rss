@@ -86,8 +86,10 @@
 
     <main class="py-4">
         @yield('content')
-    </main>
-</div>
+    </main>@yield('footer')
+  </div>
 @yield('scripts')
+
+
 </body>
 </html>

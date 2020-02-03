@@ -52,8 +52,9 @@
                                     <li>{{$flow->name}} <a href="/flow/show/{{$flow->id}}">Voir</a>
                                         <small><a href="/flows/edit/{{$flow->id}}">Modifier</a></small>
                                         <small><a href="/flows/delete/{{$flow->id}}" class="toConfirm"
-                                                  data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a> </small>
-                                       </li>
+                                                  data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
+                                        </small>
+                                    </li>
                                 @endforeach
                             </ul>
 
@@ -63,7 +64,8 @@
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
                         <ul>
-                            <li v-for="anew in news"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>, le @{{ anew.article_date }}
+                            <li v-for="anew in news"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>,
+                                le @{{ anew.article_date }}
                             </li>
                         </ul>
                     </div>
@@ -99,15 +101,15 @@
                                 .then((response) => {
                                     // handle success
                                     this.news = response.data[0].news; //push pour pas écraser résultats
-                                    this.articles=this.news;
-                                    for (i=0;i<=4;i++){
-                                        this.article=this.articles[i];
+                                    this.articles = this.news;
+                                    for (i = 0; i <= 4; i++) {
+                                        this.article = this.articles[i];
                                         // this.old
                                         // todo:comparer les dates entre elles, si date + récente pour un même indice article, on ajoute l'article + vieux à old articles
                                     }
-                                  // this.oldNews =this.news;
-                                  // this.fullNews=this.news.push(this.oldNews);
-                                  // this.total =this.news.push(response.data[0].news);
+                                    // this.oldNews =this.news;
+                                    // this.fullNews=this.news.push(this.oldNews);
+                                    // this.total =this.news.push(response.data[0].news);
                                     console.log(response.data[0].news[0]);
                                 })
                                 .catch(function (error) {
@@ -136,4 +138,7 @@
                         })
                     }
                 </script>
+@endsection
+@section('footer')
+    @include('footer')
 @endsection
