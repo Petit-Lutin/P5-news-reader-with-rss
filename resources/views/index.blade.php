@@ -1,11 +1,5 @@
 @extends('layouts/app')
 @section('content')
-    {{--    <h1>Flux</h1>--}}
-    {{--    <ul>--}}
-    {{--        @foreach($flows as $flow)--}}
-    {{--            <li>{{$flow->name}} <a href="{{$flow->url}}">lien</a></li>--}}
-    {{--        @endforeach--}}
-    {{--    </ul>--}}
 
     <div class="card">
         <header class="card-header">
@@ -13,41 +7,14 @@
         </header>
         <div class="card-content">
             <div id="content">
-                <table class="table is-hoverable">
-                    <thead>
-                    <tr>
-                        <a class="btn btn-primary" href="/flows/create">Ajouter un site</a>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{--                    @foreach($flows as $flow)--}}
-                    {{--                        <tr>--}}
-                    {{--                            <td>{{$flow->id}}</td>--}}
-                    {{--                            <td><strong>{{$flow->name}}</strong></td>--}}
-                    {{--                            --}}{{--                            <td><a class="button is-primary" href="{{ route('flows.show', $flow->id) }}">Voir</a></td>--}}
-                    {{--                            <td><a class="button is-primary" href="{{ URL::to('flows/'. $flow->id) }}">Voir</a></td>--}}
-                    {{--                            --}}{{--                            <td><a class="button is-warning" href="{{ route('flows.edit', $flow->id) }}">Modifier</a></td>--}}
-                    {{--                            <td>--}}
-                    {{--                                --}}{{--                                <form action="{{ route('flows.destroy', $flow->id) }}" method="post">--}}
-                    {{--                                --}}{{--                                    @csrf--}}
-                    {{--                                --}}{{--                                    @method('DELETE')--}}
-                    {{--                                --}}{{--                                    <button class="button is-danger" type="submit">Supprimer</button>--}}
-                    {{--                                --}}{{--                                </form>--}}
-                    {{--                            </td>--}}
-                    {{--                            <td><strong>{{$category->name}}</strong></td>--}}
-                    {{--                        </tr>--}}
-                    {{--                    @endforeach--}}
-
-
-                    </tbody>
-                </table>
+                <a class="btn btn-primary" href="/flows/create">Ajouter un site</a>
                 <div class="indexContent">
                     <div class="flowsList">
                         @foreach($categories as $category)
                             <h2>{{$category->name}} <small><a
                                         href="/categories/edit/{{$category->id}}">Modifier</a></small> <small><a
                                         href="/category/delete/{{$category->id}}" class="toConfirm"
-                                        data-message="Voulez-vous vraiment supprimer cette catégorie ?">Supprimer</a>
+                                        data-message="Voulez-vous vraiment supprimer cette catégorie ? Les flux à l'intérieur seront également supprimés de la base de données.">Supprimer</a>
                                 </small>
                             </h2>
                             <ul>
@@ -81,7 +48,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" v-bind:class="{'show':show}">
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true" v-bind:class="{'show':show}">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -118,20 +86,11 @@
                             latest: [],
                             categories:{!!$jsonCategories!!}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
                             error: false,
-                            show:true,
-
-                            // {titles: ['orange', 'banane', 'poire']},
-                            // {links: ['link1', 'link2', 'link3']}]
-                            // ,
-                            // methods: {
-                            //     add(){
-                            //         this.fruits.push(this.texte)
-                            //
-                            //     }
+                            show: false,
                         },
                         mounted() {
                             for (category of this.categories) {
-                                axios.get('/getjson/1')
+                                axios.get('/getjson/1') // Make a request for a user with a given ID
                                     .then((response) => {
                                         // handle success
                                         this.news = response.data[0].news; //push pour pas écraser résultats
@@ -150,50 +109,23 @@
                         }
                     });
 
-                    // for (i = 0; i <= this.articles.length; i++) {
+
                     //     this.article = this.articles[i];
-                    //
-                    //     if (i <= 4) {
-                    //         // this.news = response.data[0].news;
-                    //         // this.articles = this.news;
-                    //
-                    //         // this.article = this.articles[i];
-                    //
+
                     //         // console.log(this.articles[i]); //affiche les infos de chaque article
-                    //
                     //         // console.log(response.data[0].news[i].article_date); //affiche la date de l'article
-                    //         // comparer les dates entre elles, si date + récente pour un même indice article, on ajoute l'article + vieux à old articles
-                    //     }
-                    //     if (i >= 5) {
                     //
-                    //         this.news = response.data[0].news;
-                    //         this.articles = this.news;
-                    //         this.article = this.articles[i];
-                    //         console.log(response.data[0].news[i].article_date);
-                    //         var oldNews = response.data[0].news[i];
-                    //
-                    //         // console.log(this.articles[i]);
-                    //         response.data[0].news[i].push(oldNews);
-                    //         console.log("this oldnews");
-                    //         console.log(oldNews[i]);
-                    //     }
                     //     console.log(response.data[0].news[0]);
                     //     // console.log(response.data[0].news[0].article_date);
                     //     // console.log(response.data[0].news[1].article_date);
-                    // }
 
                     // this.oldNews =this.news;
                     // this.fullNews=this.news.push(this.oldNews);
                     // this.total =this.news.push(response.data[0].news);
 
 
-                    // Make a request for a user with a given ID
-
-                    //
-
                     const mesBalises = document.querySelectorAll(".toConfirm");
-// une modal -> suppresion catégorie
-                    //
+                    // todo : une modal -> suppresion catégorie
                     for (i = 0; i < mesBalises.length; i++) {
                         mesBalises[i].addEventListener("click", (e) => {
                             let message = e.currentTarget.getAttribute("data-message"); //affiche le message contenu dans l'attribut message du lien
