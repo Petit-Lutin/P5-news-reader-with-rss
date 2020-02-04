@@ -12,7 +12,7 @@
             <p class="card-header-title">Mes abonnements RSS</p>
         </header>
         <div class="card-content">
-            <div class="content">
+            <div id="content">
                 <table class="table is-hoverable">
                     <thead>
                     <tr>
@@ -45,7 +45,10 @@
                     <div class="flowsList">
                         @foreach($categories as $category)
                             <h2>{{$category->name}} <small><a
-                                        href="/categories/edit/{{$category->id}}">Modifier</a></small>
+                                        href="/categories/edit/{{$category->id}}">Modifier</a></small> <small><a
+                                        href="/category/delete/{{$category->id}}" class="toConfirm"
+                                        data-message="Voulez-vous vraiment supprimer cette catégorie ?">Supprimer</a>
+                                </small>
                             </h2>
                             <ul>
                                 @foreach($category->flowsOrderBy as $flow)
@@ -63,11 +66,38 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
+                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
+
+                        <ul>
+                            <li v-for="anew in latest"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>,
+                                le @{{ anew.article_date }}
+                            </li>
+                        </ul>
+                        <p> Archives</p>
                         <ul>
                             <li v-for="anew in news"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>,
                                 le @{{ anew.article_date }}
                             </li>
                         </ul>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" v-bind:class="{'show':show}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,14 +108,17 @@
                 <script>
                     //script vue js
                     var vue = new Vue({
-                        el: "#flowsContent",
+                        el: "#content",
                         data: {
                             news: [
                                 {article_title: "title1", article_link: "link1", article_date: "date"},
-                                {article_title: "title2", article_link: "link2"},
-                                {article_title: "title3", article_link: "link3"}
+                                {article_title: "title2", article_link: "link2", article_date: "date"},
+                                {article_title: "title3", article_link: "link3", article_date: "date"}
                             ],
-                            categories:{!!$jsonCategories!!},
+                            latest: [],
+                            categories:{!!$jsonCategories!!}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
+                            error: false,
+                            show:true,
 
                             // {titles: ['orange', 'banane', 'poire']},
                             // {links: ['link1', 'link2', 'link3']}]
@@ -97,37 +130,70 @@
                             //     }
                         },
                         mounted() {
-                            axios.get('/getjson/1')
-                                .then((response) => {
-                                    // handle success
-                                    this.news = response.data[0].news; //push pour pas écraser résultats
-                                    this.articles = this.news;
-                                    for (i = 0; i <= 4; i++) {
-                                        this.article = this.articles[i];
-                                        // this.old
-                                        // todo:comparer les dates entre elles, si date + récente pour un même indice article, on ajoute l'article + vieux à old articles
-                                    }
-                                    // this.oldNews =this.news;
-                                    // this.fullNews=this.news.push(this.oldNews);
-                                    // this.total =this.news.push(response.data[0].news);
-                                    console.log(response.data[0].news[0]);
-                                })
-                                .catch(function (error) {
-                                    // handle error
-                                    console.log(error);
-                                })
-                                .finally(function () {
-                                    // always executed
-                                });
-                        }
+                            for (category of this.categories) {
+                                axios.get('/getjson/1')
+                                    .then((response) => {
+                                        // handle success
+                                        this.news = response.data[0].news; //push pour pas écraser résultats
+                                        this.articles = this.news;
 
+                                        this.latest = this.news.splice(0, 5);
+                                    })
+                                    .catch(function (error) {
+                                        // handle error
+                                        console.log(error);
+                                    })
+                                    .finally(function () {
+                                        // always executed
+                                    });
+                            }
+                        }
                     });
+
+                    // for (i = 0; i <= this.articles.length; i++) {
+                    //     this.article = this.articles[i];
+                    //
+                    //     if (i <= 4) {
+                    //         // this.news = response.data[0].news;
+                    //         // this.articles = this.news;
+                    //
+                    //         // this.article = this.articles[i];
+                    //
+                    //         // console.log(this.articles[i]); //affiche les infos de chaque article
+                    //
+                    //         // console.log(response.data[0].news[i].article_date); //affiche la date de l'article
+                    //         // comparer les dates entre elles, si date + récente pour un même indice article, on ajoute l'article + vieux à old articles
+                    //     }
+                    //     if (i >= 5) {
+                    //
+                    //         this.news = response.data[0].news;
+                    //         this.articles = this.news;
+                    //         this.article = this.articles[i];
+                    //         console.log(response.data[0].news[i].article_date);
+                    //         var oldNews = response.data[0].news[i];
+                    //
+                    //         // console.log(this.articles[i]);
+                    //         response.data[0].news[i].push(oldNews);
+                    //         console.log("this oldnews");
+                    //         console.log(oldNews[i]);
+                    //     }
+                    //     console.log(response.data[0].news[0]);
+                    //     // console.log(response.data[0].news[0].article_date);
+                    //     // console.log(response.data[0].news[1].article_date);
+                    // }
+
+                    // this.oldNews =this.news;
+                    // this.fullNews=this.news.push(this.oldNews);
+                    // this.total =this.news.push(response.data[0].news);
+
+
                     // Make a request for a user with a given ID
 
                     //
 
                     const mesBalises = document.querySelectorAll(".toConfirm");
-
+// une modal -> suppresion catégorie
+                    //
                     for (i = 0; i < mesBalises.length; i++) {
                         mesBalises[i].addEventListener("click", (e) => {
                             let message = e.currentTarget.getAttribute("data-message"); //affiche le message contenu dans l'attribut message du lien

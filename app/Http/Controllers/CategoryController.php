@@ -85,7 +85,7 @@ class CategoryController extends Controller
             echo $exception->getMessage(); //plus tard faire une vue d'erreur
             die();
         }
-        $category->name=$request->input("name");
+        $category->name = $request->input("name");
         $category->save();
 //        echo "enregistrer";
 //        dd("enregistrer");
@@ -102,6 +102,25 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // on ne peut supprimer une catégorie que ssi elle est vide
+
+        $category = Category::findOrFail($id);
+
+        $flows = $category->flows();
+        foreach ($flows as $flow) {
+            $flow->delete();
+        }
+        $category->delete();
+        // For many relations:
+//        if ( $model->relation->isEmpty() ) {
+//            // ...
+//        }
+//        if ($flows->count()==0) {
+
+//           dd($category);
+        return back()->with('info', 'La catégorie a bien été supprimée dans la base de données.');
+//        }
+//
+
     }
 }

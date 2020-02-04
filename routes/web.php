@@ -40,7 +40,11 @@ Route::post('/categories/create', 'CategoryController@store');
 Route::get('/categories/edit/{id}', 'CategoryController@edit');
 Route::post('/categories/edit/{id}', 'CategoryController@update');
 
+Route::get('/category/delete/{id}', 'CategoryController@destroy');
+
+
 Route::get('/getjson/{id}', 'TestRssController@getJson');
+//Route::get('/getjson', 'TestRssController@getAllJson'); avoir tous les flux entremêlés
 
 Route::get('/test', 'TestController@index');
 Route::get('/testrss', 'TestController@index');
