@@ -34,17 +34,38 @@
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
                         <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                        <ul>
+                            <li v-for="category in categories"> @{{ category.category_name}}
+                                <ul>
+                                    <li v-for="flow in category.flows">
+                                        {{--                                                                                <ul>--}}
+                                        {{--                                                                                    <li v-for="anew in latest">--}}
 
-                        <ul>
-                            <li v-for="anew in latest"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>,
-                                le @{{ anew.article_date }}
+                                        {{--                                                                                        <h5>--}}
+                                        {{--                                                                                            <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+                                        {{--                                                                                            @}}--}}
+                                        {{--                                                                                            anew.article_date }}</h5>--}}
+                                        {{--                                                                                                                        <p>@{{ anew.article_description }}</p>--}}
+
+                                        {{--                                                                                    </li>--}}
+                                        {{--                                                                                </ul>--}}
+                                        <p> Archives</p>
+
+                                        <ul>
+                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a
+                                                    v-bind:href="anew.article_link">Lire
+                                                    l'article sur le site</a>,
+                                                le @{{ anew.article_date }} <br>
+                                                <div v-html="anew.article_description"></div>
+                                                <p>@{!! anew.article_description !!}</p>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                        <p> Archives</p>
-                        <ul>
-                            <li v-for="anew in news"> @{{anew.article_title}} <a v-bind:href="anew.article_link">@{{anew.article_link}}</a>,
-                                le @{{ anew.article_date }}
-                            </li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -72,42 +93,101 @@
             @endsection
 
             @section('scripts')
+                {{--                ajout AXIOS pour faire de l'AJAX--}}
                 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
                 <script>
                     //script vue js
                     var vue = new Vue({
-                        el: "#content",
-                        data: {
-                            news: [
-                                {article_title: "title1", article_link: "link1", article_date: "date"},
-                                {article_title: "title2", article_link: "link2", article_date: "date"},
-                                {article_title: "title3", article_link: "link3", article_date: "date"}
-                            ],
-                            latest: [],
-                            categories:{!!$jsonCategories!!}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
-                            error: false,
-                            show: false,
-                        },
-                        mounted() {
-                            for (category of this.categories) {
-                                axios.get('/getjson/1') // Make a request for a user with a given ID
-                                    .then((response) => {
-                                        // handle success
-                                        this.news = response.data[0].news; //push pour pas écraser résultats
-                                        this.articles = this.news;
+                            el: "#content",
+                            data: {
+                                // news: [
+                                //     {
+                                //         // channel_title: "nom du flux",
+                                //         article_title: "title1",
+                                //         article_link: "link1",
+                                //         article_date: "date",
+                                //         article_description: "article_desc1"
+                                //     },
+                                //     {
+                                //         article_title: "title2",
+                                //         article_link: "link2",
+                                //         article_date: "date",
+                                //         article_description: "article_desc2"
+                                //     },
+                                //     {
+                                //         article_title: "title3",
+                                //         article_link: "link3",
+                                //         article_date: "date",
+                                //         article_description: "article_desc3"
+                                //     }
+                                // ],
 
-                                        this.latest = this.news.splice(0, 5);
-                                    })
-                                    .catch(function (error) {
-                                        // handle error
-                                        console.log(error);
-                                    })
-                                    .finally(function () {
-                                        // always executed
-                                    });
+                                // latest:
+                                //     [],
+
+                                // categories: [{
+                                //     category_name: 'category name',
+                                //     flows: [
+                                //         {
+                                //             channel_title: 'flow name1',
+                                //             news: [
+                                //                 {
+                                //                     article_title: "title1",
+                                //                     article_link: "link1",
+                                //                     article_date: "date"
+                                //                 }
+                                //             ]
+                                //         },
+                                //         {
+                                //             channel_title: 'flow name2',
+                                //             news: [
+                                //                 {
+                                //                     article_title: "title1",
+                                //                     article_link: "link1",
+                                //                     article_date: "date"
+                                //                 }
+                                //             ]
+                                //         }
+                                //     ]
+                                // }],
+
+                                categories:{!!$jsonCategories!!},
+// , channel_title:"nomduflux", {article_title:"titre"}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
+                                error: false,
+                                show: false,
+                            },
+                            mounted() {
+                                {
+
+
+                                for (category of this.categories) {
+                                    console.log(category.name)
+
+                                    for (flow of category.flows) { // for (i = 0; i < flow.length; i++) poyur la structure/syntaxe, déclarer variable en let
+                                        console.log("---",flow.name)
+
+                                        axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
+                                            .then((response) => {
+                                                // handle success
+
+                                                flow.news = response.data[0].news;
+                                                console.log(flow)
+
+                                                // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
+                                            })
+                                            .catch(function (error) {
+                                                // handle error
+                                                // console.log("flow id", flow.id)
+                                                console.log(error);
+                                            })
+                                            .finally(function () {
+                                                // always executed
+                                            });
+                                    }
+                                }
                             }
-                        }
-                    });
+                        })
+                    ;
 
 
                     //     this.article = this.articles[i];

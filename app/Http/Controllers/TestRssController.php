@@ -113,9 +113,14 @@ class TestRssController extends Controller
     function getJson($id)
     {
         $flow = Flow::findOrFail($id);
+//        $category_id = $flow->category;
+//        $categories = Category::orderBy('name')->get();
+//        foreach ($categories as $category) {
+//            $category_name = $category->name;
+//        }
         $xml = $flow->url;
 
-        $news = []; //flux
+        $flowInfo = []; //flux
         $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
         // les informations sur le flux
@@ -129,11 +134,11 @@ class TestRssController extends Controller
                 ->item(0)->childNodes->item(0)->nodeValue;
 
 
-            // les articles et informations contenus dans le flux
+            // les articles du flux
             $articles = [];
 
             $x = $xmlDoc->getElementsByTagName('item');
-            for ($i = 0; $i <$x->length; $i++) { //toutes les news
+            for ($i = 0; $i < $x->length; $i++) { //toutes les news
                 $item_title = $x->item($i)->getElementsByTagName('title')
                     ->item(0)->childNodes->item(0)->nodeValue;
                 $item_link = $x->item($i)->getElementsByTagName('link')
@@ -150,12 +155,23 @@ class TestRssController extends Controller
                 ]);
             }
             // un flux et ses articles
-            array_push($news, [
+            array_push($flowInfo, [
                 "channel_title" => $channel_title,
                 "channel_link" => $channel_link,
                 "channel_description" => $channel_desc,
                 "news" => $articles
             ]);
+
+//            foreach ($categories as $category) {
+//                array_push($category, [
+//                        "category_name" => $category_name,
+//                        "category_id" => $category_id,
+//                        [
+//                            "flowInfo" => $flowInfo
+//                        ]
+//                    ]
+//                );
+//            };
 //            array_push($news, [
 //            $news["channel_title"] = $channel_title;
 //            $news["channel_link"] = $channel_link;
@@ -165,7 +181,7 @@ class TestRssController extends Controller
         }
 
 
-        return response()->json($news);
+        return response()->json($articles);
     }
 }
 //        return view('testrss');
