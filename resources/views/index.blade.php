@@ -160,33 +160,33 @@
                                 {
 
 
-                                for (category of this.categories) {
-                                    console.log(category.name)
+                                    for (category of this.categories) {
+                                        console.log(category.name)
 
-                                    for (flow of category.flows) { // for (i = 0; i < flow.length; i++) poyur la structure/syntaxe, déclarer variable en let
-                                        console.log("---",flow.name)
+                                        for (flow of category.flows) { // for (i = 0; i < flow.length; i++) poyur la structure/syntaxe, déclarer variable en let
+                                            console.log("---",flow.name)
 
-                                        axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
-                                            .then((response) => {
-                                                // handle success
+                                            axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
+                                                .then((response) => {
+                                                    // handle success
 
-                                                flow.news = response.data[0].news;
-                                                console.log(flow)
+                                                    flow.news = response.data;
+                                                    console.log(flow)
 
-                                                // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
-                                            })
-                                            .catch(function (error) {
-                                                // handle error
-                                                // console.log("flow id", flow.id)
-                                                console.log(error);
-                                            })
-                                            .finally(function () {
-                                                // always executed
-                                            });
+                                                    // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
+                                                })
+                                                .catch(function (error) {
+                                                    // handle error
+                                                    // console.log("flow id", flow.id)
+                                                    console.log(error);
+                                                })
+                                                .finally(function () {
+                                                    // always executed
+                                                });
+                                        }
                                     }
                                 }
-                            }
-                        })
+                            })
                     ;
 
 
