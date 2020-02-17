@@ -44,6 +44,7 @@ Route::get('/category/delete/{id}', 'CategoryController@destroy');
 
 
 Route::get('/getjson/{id}', 'TestRssController@getJson');
+Route::get('/getmyjson/{id}', 'TestRssController@getMyJson');
 //Route::get('/getjson', 'TestRssController@getAllJson'); avoir tous les flux entremêlés
 
 Route::get('/test', 'TestController@index');

@@ -164,14 +164,14 @@
                                         console.log(category.name)
 
                                         for (flow of category.flows) { // for (i = 0; i < flow.length; i++) poyur la structure/syntaxe, déclarer variable en let
-                                            console.log("---",flow.name)
+                                            console.log("---", flow.name)
 
                                             axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
                                                 .then((response) => {
                                                     // handle success
 
                                                     flow.news = response.data;
-                                                    console.log(flow)
+                                                    console.log(flow.news)
 
                                                     // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
                                                 })
@@ -186,7 +186,8 @@
                                         }
                                     }
                                 }
-                            })
+                            }
+                        })
                     ;
 
 
