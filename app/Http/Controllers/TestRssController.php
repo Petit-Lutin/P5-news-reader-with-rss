@@ -58,11 +58,7 @@ class TestRssController extends Controller
     function getJson($id)
     {
         $flow = Flow::findOrFail($id);
-//        $category_id = $flow->category;
-//        $categories = Category::orderBy('name')->get();
-//        foreach ($categories as $category) {
-//            $category_name = $category->name;
-//        }
+
         $xml = $flow->url;
 
         // pour définir un user-agent
@@ -73,14 +69,21 @@ class TestRssController extends Controller
         $flowInfo = []; //flux
         $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
+
         // les informations sur le flux
         $channels = $xmlDoc->getElementsByTagName('channel');
         foreach ($channels as $channel) {
             $channel_title = $channel->getElementsByTagName('title')
                 ->item(0)->childNodes->item(0)->nodeValue;
-//            $channel_link = $channel->getElementsByTagName('link')
-//                ->item(0)->childNodes->item(0)->nodeValue;
-            $channel_desc="";
+
+            $channel_link = "";
+            if ($channel->getElementsByTagName('link')
+                    ->item(0)->childNodes->count() > 0) {
+                $channel_link = $channel->getElementsByTagName('link')
+                    ->item(0)->childNodes->item(0)->nodeValue;
+            }
+
+            $channel_desc = "";
             if ($channel->getElementsByTagName('description')
                     ->item(0)->childNodes->count() > 0) {
                 $channel_desc = $channel->getElementsByTagName('description')
@@ -111,7 +114,7 @@ class TestRssController extends Controller
             // un flux et ses articles
             array_push($flowInfo, [
                 "channel_title" => $channel_title,
-//                "channel_link" => $channel_link,
+                "channel_link" => $channel_link,
                 "channel_description" => $channel_desc,
                 "news" => $articles
             ]);
