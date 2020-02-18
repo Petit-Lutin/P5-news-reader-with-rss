@@ -33,6 +33,7 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
+{{--                        boucle  v-for sur allNews--}}
                         <button v-if="error" class="btn btn-primary">@{{error}}</button>
                         <ul>
                             <li v-for="category in categories"> @{{ category.category_name}}
@@ -152,36 +153,58 @@
                                 // }],
 
                                 categories:{!!$jsonCategories!!},
+                                allNews: [],
 // , channel_title:"nomduflux", {article_title:"titre"}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
                                 error: false,
                                 show: false,
                             },
                             mounted() {
                                 {
+                                    let toLoad = 0;
 
+                                    // for (category of this.categories)
+                                    for (let c = 0; c < this.categories.length; c++) {
+                                        let category = this.categories[c];
+                                        // let category_name = category.name;
+                                        console.log(category);
+                                        console.log(category.name);
+                                        // let flows
 
-                                    for (category of this.categories) {
-                                        console.log(category.name)
+                                        // for (flow of category.flows)
+                                        for (let f = 0; f < category.flows.length; f++) {
+                                            let flow = category.flows[f];
 
-                                        for (flow of category.flows) { // for (i = 0; i < flow.length; i++) poyur la structure/syntaxe, déclarer variable en let
+                                            // for (i = 0; i < flow.length; i++) pour la structure/syntaxe, déclarer variable en let
+
                                             console.log("---", flow.name)
-
+                                            toLoad++; //compte les flux
                                             axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
                                                 .then((response) => {
                                                     // handle success
-
+                                                    for (const article of response.data) {
+                                                        this.allNews.push(article);
+                                                    }
+                                                    // this.allNews=[...response.data];
                                                     flow.news = response.data;
-                                                    console.log(flow.news)
+                                                    // console.log(flow.news)
 
                                                     // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
+
                                                 })
                                                 .catch(function (error) {
                                                     // handle error
-                                                    // console.log("flow id", flow.id)
+                                                    console.log("flow id", flow.id);
                                                     console.log(error);
+
                                                 })
                                                 .finally(function () {
                                                     // always executed
+                                                    toLoad--; //flux chargé
+                                                    if (toLoad == 0) {
+                                                        console.log("triez maintenant")
+                                                        // array.sort sur allNews par date antichrono
+
+                                                    }
                                                 });
                                         }
                                     }

@@ -13,7 +13,7 @@ class TestRssController extends Controller
     {
     }
 
-    public function getMyJson($id)
+    public function getMyJson($id) //en utilisant SimpleXML
     {
         $flow = Flow::findOrFail($id);
         $xml = $flow->url;
@@ -22,20 +22,36 @@ class TestRssController extends Controller
 //        $xmlDoc->load($xml);
 
 //        $channel=new \SimpleXMLElement($xmlDoc);
-        $sxe = new SimpleXMLElement($xml, 0, $data_is_url = true);
-// Get the name of the cars element
-        echo $sxe->getName() . "<br>";
+//	$xml = str_replace("content:encoded&gt;","content&gt;",$xml);
+//	$xmlFlow = simplexml_load_string($xml);
+//	$item = $xml-&gt;channel;
+//
+//	foreach($item-&gt;item AS $art)
+//	{
+//        $content = $art-&gt;content;
+//		echo $content;
+//	}
 
-// Also print out the names of the children of the cars element
-        foreach ($sxe->children() as $child) {
-            echo $child->getName() . "<br>";
+
+        $xmlFlow = new SimpleXMLElement($xml, null, true);
+
+
+// Get the name of the cars element
+        echo $xmlFlow->getName() . "<br>";
+
+// Also print out the names of the children of the  element
+        foreach ($xmlFlow->children() as $child) {
+            echo "<b>" . $child->getName() . "</b><br>";
             foreach ($child->children() as $subchild) {
                 echo $subchild->getName() . "<br>";
+                foreach ($subchild->children() as $subsubchild) {
+                    echo $subsubchild->getName() . "<br>";
+                }
             }
         }
 
 
-//        dd($xmlFlow);
+        dd($xmlFlow);
     }
 
     public
@@ -49,6 +65,11 @@ class TestRssController extends Controller
 //        }
         $xml = $flow->url;
 
+        // pour définir un user-agent
+        $opts = array('http' => array('user_agent' => 'PHP libxml agent',));
+        $context = stream_context_create($opts);
+        libxml_set_streams_context($context);
+
         $flowInfo = []; //flux
         $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
@@ -57,10 +78,14 @@ class TestRssController extends Controller
         foreach ($channels as $channel) {
             $channel_title = $channel->getElementsByTagName('title')
                 ->item(0)->childNodes->item(0)->nodeValue;
-            $channel_link = $channel->getElementsByTagName('link')
-                ->item(0)->childNodes->item(0)->nodeValue;
-            $channel_desc = $channel->getElementsByTagName('description')
-                ->item(0)->childNodes->item(0)->nodeValue;
+//            $channel_link = $channel->getElementsByTagName('link')
+//                ->item(0)->childNodes->item(0)->nodeValue;
+            $channel_desc="";
+            if ($channel->getElementsByTagName('description')
+                    ->item(0)->childNodes->count() > 0) {
+                $channel_desc = $channel->getElementsByTagName('description')
+                    ->item(0)->childNodes->item(0)->nodeValue;
+            }
 
 
             // les articles du flux
@@ -86,7 +111,7 @@ class TestRssController extends Controller
             // un flux et ses articles
             array_push($flowInfo, [
                 "channel_title" => $channel_title,
-                "channel_link" => $channel_link,
+//                "channel_link" => $channel_link,
                 "channel_description" => $channel_desc,
                 "news" => $articles
             ]);
