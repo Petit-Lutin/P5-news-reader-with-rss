@@ -7,7 +7,7 @@ use App\Flow;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
 
-class TestRssController extends Controller
+class RssController extends Controller
 {
     public function index()
     {
@@ -18,28 +18,12 @@ class TestRssController extends Controller
         $flow = Flow::findOrFail($id);
         $xml = $flow->url;
 
-//        $xmlDoc = new \DOMDocument();
-//        $xmlDoc->load($xml);
-
-//        $channel=new \SimpleXMLElement($xmlDoc);
-//	$xml = str_replace("content:encoded&gt;","content&gt;",$xml);
-//	$xmlFlow = simplexml_load_string($xml);
-//	$item = $xml-&gt;channel;
-//
-//	foreach($item-&gt;item AS $art)
-//	{
-//        $content = $art-&gt;content;
-//		echo $content;
-//	}
-
-
         $xmlFlow = new SimpleXMLElement($xml, null, true);
 
-
-// Get the name of the cars element
+// Get the name of the element
         echo $xmlFlow->getName() . "<br>";
 
-// Also print out the names of the children of the  element
+// Also print out the names of the children of the element
         foreach ($xmlFlow->children() as $child) {
             echo "<b>" . $child->getName() . "</b><br>";
             foreach ($child->children() as $subchild) {
@@ -49,9 +33,6 @@ class TestRssController extends Controller
                 }
             }
         }
-
-
-        dd($xmlFlow);
     }
 
     public
@@ -89,7 +70,6 @@ class TestRssController extends Controller
                 $channel_desc = $channel->getElementsByTagName('description')
                     ->item(0)->childNodes->item(0)->nodeValue;
             }
-
 
             // les articles du flux
             $articles = [];
@@ -141,6 +121,4 @@ class TestRssController extends Controller
         return response()->json($articles);
     }
 }
-//        return view('testrss');
-//
 
