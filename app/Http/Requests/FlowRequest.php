@@ -28,7 +28,12 @@ class FlowRequest extends FormRequest
 //            'title' => ['required', 'between:2,50'],
             'name' => 'bail|required|between:2,50',
             'category_id' => 'required|numeric',
-            'url' => 'required|string|min:10', //todo:faire regex !  [http]+s\:\/\/[a-zA-Z0-9\-]{5,}
+            'url' => [
+                'required',
+                'min:10',
+                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,})([\/\w\.-]*)*\/?$/'
+
+            ]
         ];
         if ($this->input('category_id') === '-1') {
             $rules['category_name'] = 'bail|required|between:2,50';
@@ -37,3 +42,13 @@ class FlowRequest extends FormRequest
         return $rules;
     }
 }
+
+return [
+    'password' => [
+        'required',
+        'confirmed',
+        'min:8',
+        'max:50',
+        'regex:/^(?=.*[a-z|A-Z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/',
+    ]
+];

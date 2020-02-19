@@ -82,8 +82,14 @@ class RssController extends Controller
                     ->item(0)->childNodes->item(0)->nodeValue;
                 $item_date = $x->item($i)->getElementsByTagName('pubDate')
                     ->item(0)->childNodes->item(0)->nodeValue;
-                $item_desc = $x->item($i)->getElementsByTagName('description')
-                    ->item(0)->childNodes->item(0)->nodeValue;
+
+                $item_desc = "";
+                if ($x->item($i)->getElementsByTagName('description')
+                        ->item(0)->childNodes->count() > 0) {
+                    $item_desc = $x->item($i)->getElementsByTagName('description')
+                        ->item(0)->childNodes->item(0)->nodeValue;
+                }
+
                 array_push($articles, [
                     "article_title" => $item_title,
                     "article_link" => $item_link,

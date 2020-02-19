@@ -33,41 +33,50 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
-{{--                        boucle  v-for sur allNews--}}
-                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                        {{--                        boucle  v-for sur allNews--}}
                         <ul>
-                            <li v-for="category in categories"> @{{ category.category_name}}
-                                <ul>
-                                    <li v-for="flow in category.flows">
-                                        {{--                                                                                <ul>--}}
-                                        {{--                                                                                    <li v-for="anew in latest">--}}
-
-                                        {{--                                                                                        <h5>--}}
-                                        {{--                                                                                            <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
-                                        {{--                                                                                            @}}--}}
-                                        {{--                                                                                            anew.article_date }}</h5>--}}
-                                        {{--                                                                                                                        <p>@{{ anew.article_description }}</p>--}}
-
-                                        {{--                                                                                    </li>--}}
-                                        {{--                                                                                </ul>--}}
-                                        <p> Archives</p>
-
-                                        <ul>
-                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a
-                                                    v-bind:href="anew.article_link">Lire
-                                                    l'article sur le site</a>,
-                                                le @{{ anew.article_date }} <br>
-                                                <div v-html="anew.article_description"></div>
-                                                <p>@{!! anew.article_description !!}</p>
-                                            </li>
-                                        </ul>
-
-                                    </li>
-                                </ul>
+                            <li v-for="anew in allNews">
+                                <a v-bind:href="anew.article_link">
+                                    @{{ anew.article_title }}
+                                </a>, le @{{ anew.article_date }}
                             </li>
-
-
                         </ul>
+
+
+                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                        {{--                        <ul>--}}
+                        {{--                            <li v-for="category in categories"> @{{ category.category_name}}--}}
+                        {{--                                <ul>--}}
+                        {{--                                    <li v-for="flow in category.flows">--}}
+                        {{--                                                                                <ul>--}}
+                        {{--                                                                                    <li v-for="anew in latest">--}}
+
+                        {{--                                                                                        <h5>--}}
+                        {{--                                                                                            <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+                        {{--                                                                                            @}}--}}
+                        {{--                                                                                            anew.article_date }}</h5>--}}
+                        {{--                                                                                                                        <p>@{{ anew.article_description }}</p>--}}
+
+                        {{--                                                                                    </li>--}}
+                        {{--                                                                                </ul>--}}
+                        <p> Archives</p>
+
+                        {{--                                        <ul>--}}
+                        {{--                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a--}}
+                        {{--                                                    v-bind:href="anew.article_link">Lire--}}
+                        {{--                                                    l'article sur le site</a>,--}}
+                        {{--                                                le @{{ anew.article_date }} <br>--}}
+                        {{--                                                <div v-html="anew.article_description"></div>--}}
+                        {{--                                                <p>@{!! anew.article_description !!}</p>--}}
+                        {{--                                            </li>--}}
+                        {{--                                        </ul>--}}
+
+                        {{--                                    </li>--}}
+                        {{--                                </ul>--}}
+                        {{--                            </li>--}}
+
+
+                        {{--                        </ul>--}}
                     </div>
                 </div>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -160,35 +169,35 @@
                             },
                             mounted() {
                                 {
-                                    let toLoad = 0;
+                                    let toLoad = 0; // au début de l'asynchrone
 
-                                    // for (category of this.categories)
                                     for (let c = 0; c < this.categories.length; c++) {
                                         let category = this.categories[c];
-                                        // let category_name = category.name;
-                                        console.log(category);
-                                        console.log(category.name);
-                                        // let flows
+                                        // console.log(category);
+                                        // console.log(category.name);
 
-                                        // for (flow of category.flows)
                                         for (let f = 0; f < category.flows.length; f++) {
                                             let flow = category.flows[f];
-
-                                            // for (i = 0; i < flow.length; i++) pour la structure/syntaxe, déclarer variable en let
-
-                                            console.log("---", flow.name)
+                                            // console.log("---", flow.name)
                                             toLoad++; //compte les flux
+
                                             axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID
                                                 .then((response) => {
                                                     // handle success
+                                                    flow.news = response.data;
+                                                    // console.log(response.data);
+                                                    // console.log(response.data[0].article_date);
+
                                                     for (const article of response.data) {
                                                         this.allNews.push(article);
-                                                    }
-                                                    // this.allNews=[...response.data];
-                                                    flow.news = response.data;
-                                                    // console.log(flow.news)
+                                                        // this.pubDate = article.article_date;
+                                                        // console.log(typeof this.pubDate); //string
+                                                        // console.log(this.pubDate)  // renvoie la date de publication de l'article
 
-                                                    // this.latest = this.news.splice(0, 5); // les 5 dernières news affichées à part
+                                                    }
+
+
+                                                    // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
                                                 })
                                                 .catch(function (error) {
@@ -199,10 +208,21 @@
                                                 })
                                                 .finally(function () {
                                                     // always executed
+
                                                     toLoad--; //flux chargé
-                                                    if (toLoad == 0) {
+
+                                                    if (toLoad == 0) { //quand tous les flux sont chargés, on peut trier les articles
                                                         console.log("triez maintenant")
+
                                                         // array.sort sur allNews par date antichrono
+
+
+                                                        this.allNews.sort(function (a, b) {
+                                                            // Turn your strings into dates, and then subtract them
+                                                            // to get a value that is either negative, positive, or zero.
+                                                            return new Date(b.pubDate) - new Date(a.pubDate);
+                                                        });
+
 
                                                     }
                                                 });
