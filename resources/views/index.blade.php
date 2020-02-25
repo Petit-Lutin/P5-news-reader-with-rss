@@ -10,7 +10,6 @@
                 <a class="btn btn-primary" href="/flows/create">Ajouter un site</a>
                 <div class="indexContent">
                     <div class="flowsList">
-                        {{--                        @foreach($categories as $category)--}}
                         <ul>
                             <li v-for="category in categories"><h2>@{{category.name}} <small>
                                         <a href="#" @click="currentList=category.allNews">Voir</a>
@@ -23,7 +22,6 @@
 
 
                                 <ul>
-                                    {{--                                        @foreach($category->flowsOrderBy as $flow)--}}
                                     <li v-for="flow in category.flows">
                                         @{{flow.name}} <a href="#" @click="currentList=flow.news">Voir</a>
                                         <small><a v-bind:href="'/flows/edit/'+flow.id">Modifier</a></small>
@@ -31,11 +29,9 @@
                                                   data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
                                         </small>
                                     </li>
-                                    {{--                                        @endforeach--}}
                                 </ul>
                             </li>
                         </ul>
-                        {{--                        @endforeach--}}
                     </div>
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
@@ -116,60 +112,9 @@
                     var vue = new Vue({
                             el: "#content",
                             data: {
-                                // news: [
-                                //     {
-                                //         // channel_title: "nom du flux",
-                                //         article_title: "title1",
-                                //         article_link: "link1",
-                                //         article_date: "date",
-                                //         article_description: "article_desc1"
-                                //     },
-                                //     {
-                                //         article_title: "title2",
-                                //         article_link: "link2",
-                                //         article_date: "date",
-                                //         article_description: "article_desc2"
-                                //     },
-                                //     {
-                                //         article_title: "title3",
-                                //         article_link: "link3",
-                                //         article_date: "date",
-                                //         article_description: "article_desc3"
-                                //     }
-                                // ],
-
-                                // latest:
-                                //     [],
-
-                                // categories: [{
-                                //     category_name: 'category name',
-                                //     flows: [
-                                //         {
-                                //             channel_title: 'flow name1',
-                                //             news: [
-                                //                 {
-                                //                     article_title: "title1",
-                                //                     article_link: "link1",
-                                //                     article_date: "date"
-                                //                 }
-                                //             ]
-                                //         },
-                                //         {
-                                //             channel_title: 'flow name2',
-                                //             news: [
-                                //                 {
-                                //                     article_title: "title1",
-                                //                     article_link: "link1",
-                                //                     article_date: "date"
-                                //                 }
-                                //             ]
-                                //         }
-                                //     ]
-                                // }],
-                                currentList: [], // obj littéral qui contient un tableau flows qui contient un tableau news
                                 categories:{!!$jsonCategories!!},
+                                currentList: [], // obj littéral qui contient un tableau flows qui contient un tableau news
                                 allNews: [],
-// , channel_title:"nomduflux", {article_title:"titre"}, //liste catégories contient liste flux contient liste articles, avec latest ? v-for dans un v-for dans un v-for
                                 error: false,
                                 show: false,
                                 loaded: false,
@@ -236,45 +181,10 @@
                                                     }
 
                                                     this.currentList = this.allNews;
-
-                                                    // this.currentList = {flows: [{news: this.allNews}]}; //forme d'une catégorie
-                                                    // this.currentList = {flows: [{news: flow.news}]}; //forme d'une catégorie
-
-
-                                                    //
-                                                    //
-                                                    //     for (i = 0; i < article.length; i++) {
-                                                    //         let pubDates = article.article_date;
-                                                    //         let pubDate = pubDates[i];
-                                                    //         // let a = pubDate[i];
-                                                    //         // let b = pubDate[i + 1];
-                                                    //         // console.log(a);
-                                                    //         this.allSortedNews = [];
-                                                    //         // flow.news.sort(function (pubDate, pubDates[i + 1])
-                                                    //         // {
-                                                    //         //     return new Date(pubDate.date) - new Date(pubDates[i + 1].date);
-                                                    //         // }
-                                                    //     // )
-                                                    //     //     ;
-                                                    //         this.allSortedNews.push(articles);
-                                                    //     }
-
-
-                                                    // array.sort(function(a,b){
-                                                    //     // Turn your strings into dates, and then subtract them
-                                                    //     // to get a value that is either negative, positive, or zero.
-                                                    //     return new Date(b.date) - new Date(a.date);
-                                                    // });
-
-
-                                                    // let allNews = [];
-
-                                                    // console.log(pubDate);
                                                 }
 
                                             });
                                     }
-
                                 }
                             }
                         })
