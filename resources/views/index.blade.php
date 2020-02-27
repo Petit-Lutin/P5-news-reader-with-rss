@@ -36,6 +36,28 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
+                        {{--                        <ul>--}}
+                        {{--                            <li v-for="anew in latest">--}}
+
+                        {{--                                <h5>--}}
+                        {{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+                        {{--                                    @{{ anew.article_date }}--}}
+                        {{--                                </h5>--}}
+                        {{--                                <p>@{{ anew.article_description }}</p>--}}
+
+                        {{--                            </li>--}}
+                        {{--                        </ul>--}}
+                        <div v-if="!loaded" class="loader">
+                            <div class="loadingCircle"></div>
+                        </div>
+
+                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                        {{--                        <ul>--}}
+                        {{--                            <li v-for="category in categories"> @{{ category.category_name}}--}}
+                        {{--                                <ul>--}}
+                        {{--                                    <li v-for="flow in category.flows">--}}
+
+                        <p> Archives</p>
                         <ul>
                             <li v-for="anew in currentList">
                                 <a v-bind:href="anew.article_link">
@@ -43,26 +65,6 @@
                                 </a>, le @{{ anew.article_date }}
                             </li>
                         </ul>
-
-
-                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
-                        {{--                        <ul>--}}
-                        {{--                            <li v-for="category in categories"> @{{ category.category_name}}--}}
-                        {{--                                <ul>--}}
-                        {{--                                    <li v-for="flow in category.flows">--}}
-                        {{--                                                                                <ul>--}}
-                        {{--                                                                                    <li v-for="anew in latest">--}}
-
-                        {{--                                                                                        <h5>--}}
-                        {{--                                                                                            <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
-                        {{--                                                                                            @}}--}}
-                        {{--                                                                                            anew.article_date }}</h5>--}}
-                        {{--                                                                                                                        <p>@{{ anew.article_description }}</p>--}}
-
-                        {{--                                                                                    </li>--}}
-                        {{--                                                                                </ul>--}}
-                        <p> Archives</p>
-
                         {{--                                        <ul>--}}
                         {{--                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a--}}
                         {{--                                                    v-bind:href="anew.article_link">Lire--}}
@@ -115,6 +117,7 @@
                                 categories:{!!$jsonCategories!!},
                                 currentList: [], // obj littéral qui contient un tableau flows qui contient un tableau news
                                 allNews: [],
+                                latest: [],
                                 error: false,
                                 show: false,
                                 loaded: false,
@@ -149,7 +152,7 @@
                                                     // console.log(this.pubDate)  // renvoie la date de publication de l'article
                                                 }
 
-                                                // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
+
                                             })
                                             .catch(function (error) {
                                                 // handle error
@@ -162,19 +165,21 @@
 
                                                 toLoad--; //flux chargé
                                                 if (toLoad == 0) { //quand tous les flux sont chargés, on peut trier les articles
-                                                    console.log("triez maintenant");
+                                                    // console.log("triez maintenant");
                                                     // console.log(this.allNews); //undefined, mais résolu avec fonction anonyme fléchée = on ne perd plus le this
                                                     // console.log(flow.news); // retourne bien les news, array
                                                     // array.sort sur allNews par date antichrono
                                                     // console.log(article); // retourne bien les news, obj
                                                     // console.log(article.article_date); // retourne bien les dates des news
-                                                    //todo: faire un loader qui indique que la page a fini de charger, div en pos absolute, top O left 0 width 100% height 100% avec zindex important, avec bootstrap attribuer class d-none
-                                                    //this.loaded=true, faire un v-bind avec condition
+
+
+                                                    this.loaded=true; // toutes les news sont chargées, on cache le loader
 
                                                     this.allNews = this.allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
+                                                    // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
                                                     for (i = 0; i < this.allNews.length; i++) {
-                                                        console.log(this.allNews[i].article_date);
+                                                        // console.log(this.allNews[i].article_date);
                                                     }
                                                     for (i = 0; i < this.categories.length; i++) {
                                                         this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
