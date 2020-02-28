@@ -25,8 +25,13 @@
                                     <li v-for="flow in category.flows">
                                         @{{flow.name}} <a href="#" @click="currentList=flow.news">Voir</a>
                                         <small><a v-bind:href="'/flows/edit/'+flow.id">Modifier</a></small>
-                                        <small><a v-bind:href="'/flows/delete/'+flow.id" class="toConfirm"
+                                        <small><a v-bind:href="'/flows/delete/'+flow.id" v-bind:class="{'show':true}"
+                                                  class="toConfirm"
                                                   data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
+                                        </small>
+                                        <small><a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
+                                                JQuery</a>
+                                        </small> <small><a href="#" v-bind:class="{'show':show}">TEST modal Vue</a>
                                         </small>
                                     </li>
                                 </ul>
@@ -47,7 +52,7 @@
 
                         {{--                            </li>--}}
                         {{--                        </ul>--}}
-                        <div v-if="!loaded" class="loader">
+                        <div v-show="!loaded" class="loader">
                             <div class="loadingCircle"></div>
                         </div>
 
@@ -61,8 +66,7 @@
                         <ul>
                             <li v-for="anew in currentList">
                                 <a v-bind:href="anew.article_link">
-                                    @{{ anew.article_title }}
-                                </a>, le @{{ anew.article_date }}
+                                    @{{ anew.article_title }}</a>, le @{{ anew.article_date }}
                             </li>
                         </ul>
                         {{--                                        <ul>--}}
@@ -83,8 +87,9 @@
                         {{--                        </ul>--}}
                     </div>
                 </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true" v-bind:class="{'show':show}">
+                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"
+                     role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -103,6 +108,36 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             @endsection
 
@@ -121,6 +156,7 @@
                                 error: false,
                                 show: false,
                                 loaded: false,
+                                toDelete: false,
                             },
                             mounted() {
 
@@ -170,16 +206,32 @@
                                                     // console.log(flow.news); // retourne bien les news, array
                                                     // array.sort sur allNews par date antichrono
                                                     // console.log(article); // retourne bien les news, obj
-                                                    // console.log(article.article_date); // retourne bien les dates des news
+                                                    // console.log(flow.news.article_date); // retourne bien les dates des news
 
 
-                                                    this.loaded=true; // toutes les news sont chargées, on cache le loader
+                                                    this.loaded = true; // toutes les news sont chargées, on cache le loader
 
                                                     this.allNews = this.allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
                                                     // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
                                                     for (i = 0; i < this.allNews.length; i++) {
-                                                        // console.log(this.allNews[i].article_date);
+                                                        console.log(this.allNews[i].article_date);
+                                                        this.allNews[i].article_date = new Date(this.allNews[i].article_date),
+                                                            this.month = this.allNews[i].article_date.getMonth(),
+                                                            this.day = this.allNews[i].article_date.getDay(),
+                                                            this.numberDay = this.allNews[i].article_date.getDate().toString().padStart(2, "0"),
+                                                            this.year = this.allNews[i].article_date.getFullYear(),
+                                                            this.hour = this.allNews[i].article_date.getUTCHours().toString().padStart(2, "0"),
+                                                            this.minutes = this.allNews[i].article_date.getMinutes().toString().padStart(2, "0"),
+                                                            this.secondes = this.allNews[i].article_date.getSeconds().toString().padStart(2, "0");
+
+                                                        var days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+                                                        var months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+                                                        this.allNews[i].article_date = days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
+                                                            this.hour + ":" + this.minutes + ":" + this.secondes
+                                                        // console.log(days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
+                                                        //     this.hour + ":" + this.minutes + ":" + this.secondes );
+                                                        console.log(this.allNews[i].article_date);
                                                     }
                                                     for (i = 0; i < this.categories.length; i++) {
                                                         this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
@@ -196,7 +248,7 @@
                     ;
 
                     const mesBalises = document.querySelectorAll(".toConfirm");
-                    // todo : une modal -> suppresion catégorie
+                    // todo : une modal -> suppression catégorie
                     for (i = 0; i < mesBalises.length; i++) {
                         mesBalises[i].addEventListener("click", (e) => {
                             let message = e.currentTarget.getAttribute("data-message"); //affiche le message contenu dans l'attribut message du lien
