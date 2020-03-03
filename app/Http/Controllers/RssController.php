@@ -80,9 +80,17 @@ class RssController extends Controller
                     ->item(0)->childNodes->item(0)->nodeValue;
                 $item_link = $x->item($i)->getElementsByTagName('link')
                     ->item(0)->childNodes->item(0)->nodeValue;
-                $item_date = $x->item($i)->getElementsByTagName('pubDate')
+                $date = $x->item($i)->getElementsByTagName('pubDate')
                     ->item(0)->childNodes->item(0)->nodeValue;
 
+
+//                $item_date=\Carbon\Carbon::createFromFormat('Y-m-d H',$date);
+                $date = \Carbon\Carbon::parse($date);
+                $date->locale('fr_FR');
+                $item_date = $date->isoFormat('LLLL');
+//                $item_date = $item_date->format('l j F Y H:i:s');
+//                dd($date, $item_date);
+                $item_timestamp = $date->timestamp;
                 $item_desc = "";
                 if ($x->item($i)->getElementsByTagName('description')
                         ->item(0)->childNodes->count() > 0) {
@@ -94,7 +102,8 @@ class RssController extends Controller
                     "article_title" => $item_title,
                     "article_link" => $item_link,
                     "article_description" => $item_desc,
-                    "article_date" => $item_date
+                    "article_date" => $item_date,
+                    "article_timestamp"=>$item_timestamp
                 ]);
             }
             // un flux et ses articles

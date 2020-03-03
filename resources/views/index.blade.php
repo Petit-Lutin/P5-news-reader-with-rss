@@ -31,7 +31,7 @@
                                         </small>
                                         <small><a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
                                                 JQuery</a>
-                                        </small> <small><a href="#" v-bind:class="{'show':show}">TEST modal Vue</a>
+                                        </small> <small><a href="#" @click="show=true">TEST modal Vue</a>
                                         </small>
                                     </li>
                                 </ul>
@@ -102,7 +102,7 @@
                                 ...
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="show=false">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
@@ -211,30 +211,30 @@
 
                                                     this.loaded = true; // toutes les news sont chargées, on cache le loader
 
-                                                    this.allNews = this.allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
+                                                    this.allNews = this.allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
-                                                    for (i = 0; i < this.allNews.length; i++) {
-                                                        console.log(this.allNews[i].article_date);
-                                                        this.allNews[i].article_date = new Date(this.allNews[i].article_date),
-                                                            this.month = this.allNews[i].article_date.getMonth(),
-                                                            this.day = this.allNews[i].article_date.getDay(),
-                                                            this.numberDay = this.allNews[i].article_date.getDate().toString().padStart(2, "0"),
-                                                            this.year = this.allNews[i].article_date.getFullYear(),
-                                                            this.hour = this.allNews[i].article_date.getUTCHours().toString().padStart(2, "0"),
-                                                            this.minutes = this.allNews[i].article_date.getMinutes().toString().padStart(2, "0"),
-                                                            this.secondes = this.allNews[i].article_date.getSeconds().toString().padStart(2, "0");
-
-                                                        var days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
-                                                        var months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-                                                        this.allNews[i].article_date = days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
-                                                            this.hour + ":" + this.minutes + ":" + this.secondes
-                                                        // console.log(days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
-                                                        //     this.hour + ":" + this.minutes + ":" + this.secondes );
-                                                        console.log(this.allNews[i].article_date);
-                                                    }
+                                                    // for (i = 0; i < this.allNews.length; i++) {
+                                                    //     console.log(this.allNews[i].article_date);
+                                                    //     this.allNews[i].article_date = new Date(this.allNews[i].article_date),
+                                                    //         this.month = this.allNews[i].article_date.getMonth(),
+                                                    //         this.day = this.allNews[i].article_date.getDay(),
+                                                    //         this.numberDay = this.allNews[i].article_date.getDate().toString().padStart(2, "0"),
+                                                    //         this.year = this.allNews[i].article_date.getFullYear(),
+                                                    //         this.hour = this.allNews[i].article_date.getUTCHours().toString().padStart(2, "0"),
+                                                    //         this.minutes = this.allNews[i].article_date.getMinutes().toString().padStart(2, "0"),
+                                                    //         this.secondes = this.allNews[i].article_date.getSeconds().toString().padStart(2, "0");
+                                                    //
+                                                    //     var days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
+                                                    //     var months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+                                                    //     this.allNews[i].article_date = days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
+                                                    //         this.hour + ":" + this.minutes + ":" + this.secondes
+                                                    //     // console.log(days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
+                                                    //     //     this.hour + ":" + this.minutes + ":" + this.secondes );
+                                                    //     console.log(this.allNews[i].article_date);
+                                                    // }
                                                     for (i = 0; i < this.categories.length; i++) {
-                                                        this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_date) - new Date(a.article_date));
+                                                        this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     }
 
                                                     this.currentList = this.allNews;
