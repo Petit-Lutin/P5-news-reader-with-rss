@@ -26,7 +26,7 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
-   }
+}
 
 .loadingCircle {
     border: 13px solid #f3f3f3; /* Light grey */
@@ -46,3 +46,10 @@ li {
     }
 }
 
+.newCategory {
+    display: none;
+}
+
+#newCategory, #newCategoryLabel {
+    display: none;
+}

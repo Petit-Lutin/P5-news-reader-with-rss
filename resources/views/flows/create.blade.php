@@ -20,7 +20,7 @@
                     @enderror
                     @if ($errors->has('name')) <span
                         class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span> @endif
-                    <select class="form-control" id="mySelect" name="category_id" required>
+                    <select class="form-control mySelect" id="mySelect" name="category_id" required>
                         <option value="" disabled selected>Choisir une catégorie</option>
                         <option value="-1" onclick="displayNewCategory()">Nouvelle catégorie</option>
 
@@ -32,7 +32,7 @@
                     </select>
                     <label for="newCategory" id="newCategoryLabel">Nom de la nouvelle
                         catégorie</label>
-                    <input class="form-control" type="text" id="newCategory" name="category_name"
+                    <input class="form-control newCategory" type="text" id="newCategory" name="category_name"
                            @error('category_name') is-invalid
                            @enderror placeholder="Nom de la nouvelle catégorie" value="{{old("category_name","")}}">
                   <div>
@@ -54,13 +54,10 @@
         </div>
     </div>
 @endsection
-<style>
-    #newCategory, #newCategoryLabel {
-        display: none;
-    }
-</style>
+
 @section('scripts')
-    <script>
+{{--    <script src="public/js/inputNewCategory.js">--}}
+    <script>// todo:factoriser js
         function displayNewCategory() {
             var isSelected = document.getElementById("mySelect").selectedIndex;
             var valueOption = document.getElementsByTagName("option")[isSelected].value;

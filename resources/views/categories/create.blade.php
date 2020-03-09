@@ -4,15 +4,9 @@
     <p>Nouvelle catégorie</p>
     <form method="POST">
         {{csrf_field()}}
-        <input name="name" type="text" required>
-{{--        <select name="category_id" required>--}}
-{{--            <option value="" disabled>Choisir une catégorie</option>--}}
-
-{{--            @foreach($categories as $categorie)--}}
-{{--                <option value="{{$categorie->id}}">{{$categorie->name}}</option>--}}
-{{--            @endforeach--}}
-{{--        </select>--}}
-
+        <label for="new_Category">Nom de la nouvelle
+            catégorie</label>
+        <input name="name" type="text" id="new_Category" required>
 
         <input type="submit" value="Enregistrer">
     </form>

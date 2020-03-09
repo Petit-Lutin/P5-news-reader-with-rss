@@ -4,7 +4,8 @@
     <p>Modifier une catégorie</p>
     <form method="POST">
         {{csrf_field()}}
-        <input name="name" type="text" value="{{old("name",$category->name)}}" required>
+        <label for="new_CategoryLabel" id="newCategoryLabel">Modifier le nom de la catégorie</label>
+        <input name="name" type="text" id="new_CategoryLabel"value="{{old("name",$category->name)}}" required>
 {{--        <select name="category_id" required>--}}
 {{--            <option value="" disabled>Choisir une catégorie</option>--}}
 
