@@ -18,6 +18,10 @@
                                             v-bind:href="'/category/delete/'+category.id" class="toConfirm"
                                             data-message="Voulez-vous vraiment supprimer cette catégorie ? Les flux à l'intérieur seront également supprimés de la base de données.">Supprimer</a>
                                     </small>
+                                    <small><a v-bind:href="'/categories/edit/'+category.id" @click="show=true"
+                                              v-on:click.self="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', $event, $href)">TEST
+                                            modal Vue</a>
+                                    </small>
                                 </h2>
 
 
@@ -25,13 +29,15 @@
                                     <li v-for="flow in category.flows">
                                         @{{flow.name}} <a href="#" @click="currentList=flow.news">Voir</a>
                                         <small><a v-bind:href="'/flows/edit/'+flow.id">Modifier</a></small>
-                                        <small><a v-bind:href="'/flows/delete/'+flow.id" v-bind:class="{'show':true}"
+                                        <small><a v-bind:href="'/flows/delete/'+flow.id"
                                                   class="toConfirm"
                                                   data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
                                         </small>
                                         <small><a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
                                                 JQuery</a>
-                                        </small> <small><a href="#" @click="show=true">TEST modal Vue</a>
+                                        </small> <small><a v-bind:href="'/flows/delete/'+flow.id" @click="show=true"
+                                                           v-on:click.self="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', $event, $href)">TEST
+                                                modal Vue</a>
                                         </small>
                                     </li>
                                 </ul>
@@ -41,17 +47,18 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
-                        {{--                        <ul>--}}
-                        {{--                            <li v-for="anew in latest">--}}
+{{--                        <h5>Tout récemment</h5>--}}
+{{--                        <ul>--}}
+{{--                            <li v-for="anew in latest">--}}
 
-                        {{--                                <h5>--}}
-                        {{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
-                        {{--                                    @{{ anew.article_date }}--}}
-                        {{--                                </h5>--}}
-                        {{--                                <p>@{{ anew.article_description }}</p>--}}
+{{--                                <h5>--}}
+{{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+{{--                                    @{{ anew.article_date }}--}}
+{{--                                </h5>--}}
+{{--                                <p>@{{ anew.article_description }}</p>--}}
 
-                        {{--                            </li>--}}
-                        {{--                        </ul>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
                         <div v-show="!loaded" class="loader">
                             <div class="loadingCircle"></div>
                         </div>
@@ -87,34 +94,42 @@
                         {{--                        </ul>--}}
                     </div>
                 </div>
-                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"
-                     role="dialog"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="show=false">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {{--                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"--}}
+            {{--                     role="dialog"--}}
+            {{--                     aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+            {{--                    <div class="modal-dialog" role="document">--}}
+            {{--                        <div class="modal-content">--}}
+            {{--                            <div class="modal-header">--}}
+            {{--                                <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>--}}
+            {{--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"--}}
+            {{--                                        @click="show=false">--}}
+            {{--                                    <span aria-hidden="true">&times;</span>--}}
+            {{--                                </button>--}}
+            {{--                            </div>--}}
+            {{--                            <div class="modal-body">--}}
+            {{--                                @{{ modalContent }}--}}
+            {{--                            </div>--}}
+            {{--                            <div class="modal-footer">--}}
+            {{--                                --}}{{--                                <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button" data-dismiss="modal" @click="show=false">Annuler</a>--}}
+            {{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal"--}}
+            {{--                                        @click="show=false">Annuler--}}
+            {{--                                </button>--}}
+            {{--                                --}}{{--                                <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
+            {{--                                <a v-bind:href="href" type="button" class="btn btn-danger" role="button"--}}
+            {{--                                   @click="show=false">Supprimer</a>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
 
 
-                <!-- Button trigger modal -->
+            <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Launch demo modal
                 </button>
-
+                <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">
+                    Soumettre
+                </button>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                      aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -156,8 +171,28 @@
                                 error: false,
                                 show: false,
                                 loaded: false,
-                                toDelete: false,
+                                href: '/flows/delete/',
+                                // toDelete: false,
                             },
+                            // methods: {
+                            //     warnBeforeDelete: function (message, content, event, href) {
+                            //         // maintenant nous avons accès à l'évènement natif
+                            //         this.modalTitle = message,
+                            //             this.modalContent = content
+                            //         href = this.href
+                            //         event.stopPropagation()
+                            //         event.preventDefault()
+                            //         console.log(href)
+                            //         if (event) {
+                            //
+                            //         }
+                            //         // if (!confirm(message)){
+                            //         //     event.preventDefault()
+                            //         //
+                            //         // }
+                            //         // show: false
+                            //     }
+                            // },
                             mounted() {
 
                                 let toLoad = 0; // au début de l'asynchrone
@@ -214,25 +249,6 @@
                                                     this.allNews = this.allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
-                                                    // for (i = 0; i < this.allNews.length; i++) {
-                                                    //     console.log(this.allNews[i].article_date);
-                                                    //     this.allNews[i].article_date = new Date(this.allNews[i].article_date),
-                                                    //         this.month = this.allNews[i].article_date.getMonth(),
-                                                    //         this.day = this.allNews[i].article_date.getDay(),
-                                                    //         this.numberDay = this.allNews[i].article_date.getDate().toString().padStart(2, "0"),
-                                                    //         this.year = this.allNews[i].article_date.getFullYear(),
-                                                    //         this.hour = this.allNews[i].article_date.getUTCHours().toString().padStart(2, "0"),
-                                                    //         this.minutes = this.allNews[i].article_date.getMinutes().toString().padStart(2, "0"),
-                                                    //         this.secondes = this.allNews[i].article_date.getSeconds().toString().padStart(2, "0");
-                                                    //
-                                                    //     var days = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
-                                                    //     var months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-                                                    //     this.allNews[i].article_date = days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
-                                                    //         this.hour + ":" + this.minutes + ":" + this.secondes
-                                                    //     // console.log(days [this.day] + " " + this.numberDay + " " + months[this.month] + " " + this.year + " à " +
-                                                    //     //     this.hour + ":" + this.minutes + ":" + this.secondes );
-                                                    //     console.log(this.allNews[i].article_date);
-                                                    // }
                                                     for (i = 0; i < this.categories.length; i++) {
                                                         this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     }
