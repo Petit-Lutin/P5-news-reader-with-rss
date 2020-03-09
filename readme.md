@@ -1,7 +1,7 @@
 # Projet 5 : agrégateur de sites web grâce aux flux RSS
 Ceci est le cinquième et dernier projet de ma formation "Développeuse web junior". 
 
-## Pourquoi ?
+## Pourquoi ce projet ?
 L'intérêt est de s'abonner aux flux RSS des sites qui nous intéressent (blogs, sites d'informations...) afin d'être informé des nouvelles parutions, pour une utilisation de loisirs ou de veille.
 
 ## Comment ça marche ?

@@ -8,7 +8,7 @@
             catégorie</label>
         <input name="name" type="text" id="new_Category" required>
 
-        <input type="submit" value="Enregistrer">
+        <input type="submit" class="btn btn-primary" value="Enregistrer">
     </form>
 
 @endsection

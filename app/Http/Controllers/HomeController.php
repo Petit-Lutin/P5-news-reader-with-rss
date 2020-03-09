@@ -25,4 +25,13 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function mentionslegales()
+    {
+        return view('mentionslegales');
+    }
+    public function politiqueconfidentialite()
+    {
+        return view('politiqueconfidentialite');
+    }
 }

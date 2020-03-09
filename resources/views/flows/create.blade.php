@@ -20,6 +20,8 @@
                     @enderror
                     @if ($errors->has('name')) <span
                         class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span> @endif
+                    <label>Dans la catégorie</label>
+
                     <select class="form-control mySelect" id="mySelect" name="category_id" required>
                         <option value="" disabled selected>Choisir une catégorie</option>
                         <option value="-1" onclick="displayNewCategory()">Nouvelle catégorie</option>
@@ -35,12 +37,12 @@
                     <input class="form-control newCategory" type="text" id="newCategory" name="category_name"
                            @error('category_name') is-invalid
                            @enderror placeholder="Nom de la nouvelle catégorie" value="{{old("category_name","")}}">
-                  <div>
-                    <label for="url">URL du nouveau flux RSS</label>
+                    <div>
+                        <label for="url">URL du nouveau flux RSS</label>
 
-                    <input class="form-control" type="url" name="url" id="url" @error('url') is-invalid
-                           @enderror  placeholder="URL du nouveau flux RSS" value="{{old("url","")}}" required>
-                  </div>
+                        <input class="form-control" type="url" name="url" id="url" @error('url') is-invalid
+                               @enderror  placeholder="URL du nouveau flux RSS" value="{{old("url","")}}" required>
+                    </div>
                     @error('url')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -56,7 +58,7 @@
 @endsection
 
 @section('scripts')
-{{--    <script src="public/js/inputNewCategory.js">--}}
+    {{--    <script src="public/js/inputNewCategory.js">--}}
     <script>// todo:factoriser js
         function displayNewCategory() {
             var isSelected = document.getElementById("mySelect").selectedIndex;
@@ -71,4 +73,7 @@
             }
         }
     </script>
+@endsection
+@section('footer')
+    @include('footer')
 @endsection

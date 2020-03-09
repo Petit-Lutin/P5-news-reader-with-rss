@@ -47,18 +47,18 @@
 
                     <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
                         date décroissante.
-{{--                        <h5>Tout récemment</h5>--}}
-{{--                        <ul>--}}
-{{--                            <li v-for="anew in latest">--}}
+                        {{--                        <h5>Tout récemment</h5>--}}
+                        {{--                        <ul>--}}
+                        {{--                            <li v-for="anew in latest">--}}
 
-{{--                                <h5>--}}
-{{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
-{{--                                    @{{ anew.article_date }}--}}
-{{--                                </h5>--}}
-{{--                                <p>@{{ anew.article_description }}</p>--}}
+                        {{--                                <h5>--}}
+                        {{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+                        {{--                                    @{{ anew.article_date }}--}}
+                        {{--                                </h5>--}}
+                        {{--                                <p>@{{ anew.article_description }}</p>--}}
 
-{{--                            </li>--}}
-{{--                        </ul>--}}
+                        {{--                            </li>--}}
+                        {{--                        </ul>--}}
                         <div v-show="!loaded" class="loader">
                             <div class="loadingCircle"></div>
                         </div>
