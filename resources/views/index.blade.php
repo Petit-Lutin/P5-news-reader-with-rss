@@ -1,158 +1,177 @@
 @extends('layouts/app')
 @section('content')
-
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">Mes abonnements RSS</p>
-        </header>
-        <div class="card-content">
-            <div id="content">
-                <a class="btn btn-primary" href="/flows/create">Ajouter un site</a>
-                <div class="indexContent">
-                    <div class="flowsList">
-                        <ul>
-                            <li v-for="category in categories"><h2>@{{category.name}} <small>
-                                        <a href="#" @click="currentList=category.allNews">Voir</a>
-                                        <a
-                                            v-bind:href="'/categories/edit/'+category.id">Modifier</a></small> <small><a
-                                            v-bind:href="'/category/delete/'+category.id" class="toConfirm"
-                                            data-message="Voulez-vous vraiment supprimer cette catégorie ? Les flux à l'intérieur seront également supprimés de la base de données.">Supprimer</a>
-                                    </small>
-                                    <small><a v-bind:href="'/categories/edit/'+category.id" @click="show=true"
-                                              v-on:click.self="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', $event, $href)">TEST
-                                            modal Vue</a>
-                                    </small>
-                                </h2>
+    <div class="container containerIndex">
+        <div class="card">
+            <header class="card-header">
+                <div class="row">
+                    <div class="col text-center">
+                        <a class="btn btn-primary text-center" href="/flows/create">Ajouter un site</a>
+                    </div>
+                    <div class="col"><h3 class="card-header-title">Mes abonnements RSS</h3>
+                    </div>
+                </div>
+            </header>
+            <div class="card-content">
+                <div id="content">
 
 
-                                <ul>
-                                    <li v-for="flow in category.flows">
-                                        @{{flow.name}} <a href="#" @click="currentList=flow.news">Voir</a>
-                                        <small><a v-bind:href="'/flows/edit/'+flow.id">Modifier</a></small>
-                                        <small><a v-bind:href="'/flows/delete/'+flow.id"
-                                                  class="toConfirm"
-                                                  data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
+                    <div class="indexContent">
+                        <div id="flowsList">
+
+
+                            <ul>
+                                <li v-for="category in categories"><h4>@{{category.name}} <small>
+                                            <a href="#" @click="currentList=category.allNews"
+                                               class="btn btn-primary btn-sm"
+                                               role="button">Voir</a>
+                                            <a
+                                                v-bind:href="'/categories/edit/'+category.id"
+                                                class="btn btn-primary btn-sm"
+                                                role="button">Modifier</a></small> <small><a
+                                                v-bind:href="'/category/delete/'+category.id" class="toConfirm"
+                                                data-message="Voulez-vous vraiment supprimer cette catégorie ? Les flux à l'intérieur seront également supprimés de la base de données.">Supprimer</a>
                                         </small>
-                                        <small><a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
-                                                JQuery</a>
-                                        </small> <small><a v-bind:href="'/flows/delete/'+flow.id" @click="show=true"
-                                                           v-on:click.self="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', $event, $href)">TEST
+                                        <small><a v-bind:href="'/categories/edit/'+category.id" @click="show=true"
+                                                  class="btn btn-danger btn-sm" role="button"
+                                                  v-on:click.self="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', $event, $href)">TEST
                                                 modal Vue</a>
                                         </small>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                                    </h4>
 
-                    <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées par
-                        date décroissante.
-                        {{--                        <h5>Tout récemment</h5>--}}
-                        {{--                        <ul>--}}
-                        {{--                            <li v-for="anew in latest">--}}
 
-                        {{--                                <h5>--}}
-                        {{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
-                        {{--                                    @{{ anew.article_date }}--}}
-                        {{--                                </h5>--}}
-                        {{--                                <p>@{{ anew.article_description }}</p>--}}
+                                    <ul>
+                                        <li v-for="flow in category.flows">
+                                            @{{flow.name}} <a href="#" @click="currentList=flow.news"><span
+                                                    class="badge badge-primary">Voir</span></a>
+                                            <a v-bind:href="'/flows/edit/'+flow.id"><span
+                                                    class="badge badge-info">Modifier</span></a>
+                                            <a v-bind:href="'/flows/delete/'+flow.id"
+                                               class="toConfirm"
+                                               data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
 
-                        {{--                            </li>--}}
-                        {{--                        </ul>--}}
-                        <div v-show="!loaded" class="loader">
-                            <div class="loadingCircle"></div>
+                                            <a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
+                                                JQuery</a>
+                                            <a v-bind:href="'/flows/delete/'+flow.id" @click="show=true"
+                                               v-on:click.self="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', $event, $href)"><span
+                                                    class="badge badge-danger">TEST
+                                                    modal Vue</span></a>
+
+                                        </li>
+                                    </ul>
+                                    <hr>
+                                </li>
+                            </ul>
                         </div>
 
-                        <button v-if="error" class="btn btn-primary">@{{error}}</button>
-                        {{--                        <ul>--}}
-                        {{--                            <li v-for="category in categories"> @{{ category.category_name}}--}}
-                        {{--                                <ul>--}}
-                        {{--                                    <li v-for="flow in category.flows">--}}
+                        <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées
+                            par
+                            date décroissante.
+                            {{--                        <h5>Tout récemment</h5>--}}
+                            {{--                        <ul>--}}
+                            {{--                            <li v-for="anew in latest">--}}
 
-                        <p> Archives</p>
-                        <ul>
-                            <li v-for="anew in currentList">
-                                <a v-bind:href="anew.article_link">
-                                    @{{ anew.article_title }}</a>, le @{{ anew.article_date }}
-                            </li>
-                        </ul>
-                        {{--                                        <ul>--}}
-                        {{--                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a--}}
-                        {{--                                                    v-bind:href="anew.article_link">Lire--}}
-                        {{--                                                    l'article sur le site</a>,--}}
-                        {{--                                                le @{{ anew.article_date }} <br>--}}
-                        {{--                                                <div v-html="anew.article_description"></div>--}}
-                        {{--                                                <p>@{!! anew.article_description !!}</p>--}}
-                        {{--                                            </li>--}}
-                        {{--                                        </ul>--}}
+                            {{--                                <h5>--}}
+                            {{--                                    <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le--}}
+                            {{--                                    @{{ anew.article_date }}--}}
+                            {{--                                </h5>--}}
+                            {{--                                <p>@{{ anew.article_description }}</p>--}}
 
-                        {{--                                    </li>--}}
-                        {{--                                </ul>--}}
-                        {{--                            </li>--}}
+                            {{--                            </li>--}}
+                            {{--                        </ul>--}}
+                            <div v-show="!loaded" class="loader">
+                                <div class="loadingCircle"></div>
+                            </div>
+
+                            <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                            {{--                        <ul>--}}
+                            {{--                            <li v-for="category in categories"> @{{ category.category_name}}--}}
+                            {{--                                <ul>--}}
+                            {{--                                    <li v-for="flow in category.flows">--}}
+
+                            <p>Bonne lecture !</p>
+                            <ul>
+                                <li v-for="anew in currentList">
+                                    <a v-bind:href="anew.article_link">
+                                        @{{ anew.article_title }}</a>, @{{ anew.article_date }}
+                                </li>
+                            </ul>
+                            {{--                                        <ul>--}}
+                            {{--                                            <li v-for="anew in flow.news"> @{{anew.article_title}} : <a--}}
+                            {{--                                                    v-bind:href="anew.article_link">Lire--}}
+                            {{--                                                    l'article sur le site</a>,--}}
+                            {{--                                                le @{{ anew.article_date }} <br>--}}
+                            {{--                                                <div v-html="anew.article_description"></div>--}}
+                            {{--                                                <p>@{!! anew.article_description !!}</p>--}}
+                            {{--                                            </li>--}}
+                            {{--                                        </ul>--}}
+
+                            {{--                                    </li>--}}
+                            {{--                                </ul>--}}
+                            {{--                            </li>--}}
 
 
-                        {{--                        </ul>--}}
+                            {{--                        </ul>--}}
+                        </div>
                     </div>
-                </div>
-            {{--                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"--}}
-            {{--                     role="dialog"--}}
-            {{--                     aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-            {{--                    <div class="modal-dialog" role="document">--}}
-            {{--                        <div class="modal-content">--}}
-            {{--                            <div class="modal-header">--}}
-            {{--                                <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>--}}
-            {{--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"--}}
-            {{--                                        @click="show=false">--}}
-            {{--                                    <span aria-hidden="true">&times;</span>--}}
-            {{--                                </button>--}}
-            {{--                            </div>--}}
-            {{--                            <div class="modal-body">--}}
-            {{--                                @{{ modalContent }}--}}
-            {{--                            </div>--}}
-            {{--                            <div class="modal-footer">--}}
-            {{--                                --}}{{--                                <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button" data-dismiss="modal" @click="show=false">Annuler</a>--}}
-            {{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal"--}}
-            {{--                                        @click="show=false">Annuler--}}
-            {{--                                </button>--}}
-            {{--                                --}}{{--                                <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
-            {{--                                <a v-bind:href="href" type="button" class="btn btn-danger" role="button"--}}
-            {{--                                   @click="show=false">Supprimer</a>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
+                {{--                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"--}}
+                {{--                     role="dialog"--}}
+                {{--                     aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+                {{--                    <div class="modal-dialog" role="document">--}}
+                {{--                        <div class="modal-content">--}}
+                {{--                            <div class="modal-header">--}}
+                {{--                                <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>--}}
+                {{--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"--}}
+                {{--                                        @click="show=false">--}}
+                {{--                                    <span aria-hidden="true">&times;</span>--}}
+                {{--                                </button>--}}
+                {{--                            </div>--}}
+                {{--                            <div class="modal-body">--}}
+                {{--                                @{{ modalContent }}--}}
+                {{--                            </div>--}}
+                {{--                            <div class="modal-footer">--}}
+                {{--                                --}}{{--                                <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button" data-dismiss="modal" @click="show=false">Annuler</a>--}}
+                {{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal"--}}
+                {{--                                        @click="show=false">Annuler--}}
+                {{--                                </button>--}}
+                {{--                                --}}{{--                                <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
+                {{--                                <a v-bind:href="href" type="button" class="btn btn-danger" role="button"--}}
+                {{--                                   @click="show=false">Supprimer</a>--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
 
 
-            <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Launch demo modal
-                </button>
-                <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">
-                    Soumettre
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button>
+                    <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">
+                        Soumettre
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-
             </div>
             @endsection
 

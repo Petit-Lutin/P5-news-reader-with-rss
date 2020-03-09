@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Agrégateur de blogs') }}</title>
+    <title>{{ config('app.name', 'Agrégateur de flux RSS') }}</title>
 
     <!-- Scripts -->
     {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
@@ -32,7 +32,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{--                    {{ config('app.name', 'Laravel') }}--}}
-                {{ config('app.name', 'Agrégateur de blogs') }}
+                {{ config('app.name', 'Agrégateur de flux RSS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,11 +51,11 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('S\'enregistrer') }}</a>
                             </li>
                         @endif
                     @else

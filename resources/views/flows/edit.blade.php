@@ -48,7 +48,7 @@
                     @if ($errors->has('url')) <span
                         class="help-block"> <strong>{{ $errors->first('url') }}</strong> </span> @endif
 
-                    <input class="btn btn-primary" type="submit" value="Enregistrer"> <a class="btn btn-primary"
+                    <input class="btn btn-primary" type="submit" value="Enregistrer"> <a class="btn btn-secondary"
                                                                                          href="/index">Retour</a>
                 </form>
             </div>

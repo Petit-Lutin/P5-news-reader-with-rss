@@ -1,12 +1,26 @@
+#content{
+    background: #f3faff;
+}
 .indexContent {
     display: flex;
 }
 
-.flowsContent {
-    border-left: 1px solid #3495e3;
+#flowsContent {
+    border: 1px solid #c1ddf2;
+    border-radius: 5px;
+    margin: 5px;
     padding: 5px;
+    background: white;
+    flex:70%;
 }
 
+.container.containerIndex {
+   max-width: 80%;
+}
+
+#flowsList{
+    padding-top:10px;
+}
 .show {
     display: block;
 }

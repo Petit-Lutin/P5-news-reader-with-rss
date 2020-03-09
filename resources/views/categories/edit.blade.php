@@ -11,7 +11,7 @@
                     <input name="name" type="text" id="new_CategoryLabel" class="form-control"
                            value="{{old("name",$category->name)}}" required>
                     <br>
-                    <input type="submit" class="btn btn-primary" value="Enregistrer"> <a class="btn btn-primary"
+                    <input type="submit" class="btn btn-primary" value="Enregistrer"> <a class="btn btn-secondary"
                                                                                          href="/index">Retour</a>
                 </form>
             </div>
