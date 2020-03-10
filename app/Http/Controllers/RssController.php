@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Flow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-//use SimpleXMLElement;
 
 class RssController extends Controller
 {
@@ -14,32 +14,12 @@ class RssController extends Controller
     {
     }
 
-    public function getMyJson($id) //en utilisant SimpleXML
+    public function getJson($id)
     {
+        $user = Auth::user();
+        $categories = $user->categoriesOrderBy;
         $flow = Flow::findOrFail($id);
-        $xml = $flow->url;
 
-        $xmlFlow = new SimpleXMLElement($xml, null, true);
-
-// Get the name of the element
-        echo $xmlFlow->getName() . "<br>";
-
-// Also print out the names of the children of the element
-        foreach ($xmlFlow->children() as $child) {
-            echo "<b>" . $child->getName() . "</b><br>";
-            foreach ($child->children() as $subchild) {
-                echo $subchild->getName() . "<br>";
-                foreach ($subchild->children() as $subsubchild) {
-                    echo $subsubchild->getName() . "<br>";
-                }
-            }
-        }
-    }
-
-    public
-    function getJson($id)
-    {
-        $flow = Flow::findOrFail($id);
         //todo:vérifier que Auth guest = false (tableau)
 //todo:vérifier que le flux appartient bien à l'utilisateur connecté, remonter aux catégories et à l'utilisateur, Auth::user()->id
         $xml = $flow->url;

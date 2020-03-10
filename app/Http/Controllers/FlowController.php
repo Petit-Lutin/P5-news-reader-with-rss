@@ -130,11 +130,7 @@ class FlowController extends Controller
             $category = Category::create(['name' => $request->input('category_name')]);
             $inputs ['category_id'] = $category->id;
         }
-//        dd($inputs);
-//        $flow = Flow::create($inputs);
-//        $flow->name=$inputs['name'];
-//        $flow->name=$inputs['name'];
-//        $flow->name=$inputs['name'];
+
         $flow->name = $inputs["name"];
         $flow->url = $inputs["url"];
         $flow->category_id = $inputs["category_id"];

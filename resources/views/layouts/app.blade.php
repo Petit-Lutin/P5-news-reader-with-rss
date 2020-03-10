@@ -31,7 +31,6 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{--                    {{ config('app.name', 'Laravel') }}--}}
                 {{ config('app.name', 'Agrégateur de flux RSS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -69,7 +68,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Se déconnecter') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

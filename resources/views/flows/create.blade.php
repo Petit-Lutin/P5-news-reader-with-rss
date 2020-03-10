@@ -1,6 +1,5 @@
 @extends('layouts/app')
 @section('content')
-    {{--    @foreach ($errors->all() as $error) {{ $error }}<br/> @endforeach--}}
     <div class="container">
         <div class="row">
             <h2>Ajouter un site</h2>
@@ -8,7 +7,6 @@
         <div class="row">
 
             <div class="col">
-
 
                 <form method="POST">
                     {{csrf_field()}}
@@ -32,11 +30,13 @@
                             >{{$categorie->name}}</option>
                         @endforeach
                     </select>
+
                     <label for="newCategory" id="newCategoryLabel">Nom de la nouvelle
                         catégorie</label>
                     <input class="form-control newCategory" type="text" id="newCategory" name="category_name"
                            @error('category_name') is-invalid
                            @enderror placeholder="Nom de la nouvelle catégorie" value="{{old("category_name","")}}">
+
                     <div>
                         <label for="url">URL du nouveau flux RSS</label>
 
@@ -46,6 +46,7 @@
                     @error('url')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    
                     @if ($errors->has('url')) <span
                         class="help-block"> <strong>{{ $errors->first('url') }}</strong> </span> @endif
 

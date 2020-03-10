@@ -1,12 +1,12 @@
 @extends('layouts/app')
 @section('content')
-    {{--    @foreach ($errors->all() as $error) {{ $error }}<br/> @endforeach--}}
+
     <div class="container">
         <div class="row"><h2>Modifier un site</h2>
         </div>
+
         <div class="row">
             <div class="col">
-
 
                 <form method="POST">
                     {{csrf_field()}}
@@ -33,6 +33,7 @@
                             >{{$categorie->name}}</option>
                         @endforeach
                     </select>
+
                     <label for="newCategory" id="newCategoryLabel">Nom de la nouvelle
                         catégorie</label>
                     <input class="form-control" type="text" id="newCategory" name="category_name"

@@ -10,15 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-//    public function index()
-//    {
-//        $categories = Category::orderBy('name')->get();
-////        return view('index', compact('flows'));
-////        return view('index')
-////            ->withFlows($flows)
-////            ->withSuperTruc('bonjour');
-//        return 'olala';
-//    }
+    public function index()
+    {
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -40,9 +36,7 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-
         $category = Category::create($data); //on vérifie que l'utilisateur est bien connecté pour qu'il ne voie que les catégories qui lui appartiennent
-
         return redirect('/index');
     }
 
@@ -107,14 +101,17 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        // on ne peut supprimer une catégorie que ssi elle est vide
-
+        $user = Auth::user();
+        $categories = $user->categoriesOrderBy;
         $category = Category::findOrFail($id);
 
         $flows = $category->flows();
-        foreach ($flows as $flow) {
-            $flow->delete();
+        if ($flows!=null){
+            foreach ($flows as $flow) {
+                $flow->delete();
+            }
         }
+
         $category->delete();
         // For many relations:
 //        if ( $model->relation->isEmpty() ) {
@@ -125,6 +122,7 @@ class CategoryController extends Controller
 //           dd($category);
         return back()->with('info', 'La catégorie a bien été supprimée dans la base de données.');
 //        }
+        return redirect('/index');
 //
 
     }
