@@ -45,12 +45,12 @@
                                                     class="badge badge-primary">Voir</span></a>
                                             <a v-bind:href="'/flows/edit/'+flow.id"><span
                                                     class="badge badge-info">Modifier</span></a>
-{{--                                            <a v-bind:href="'/flows/delete/'+flow.id"--}}
-{{--                                               class="toConfirm"--}}
-{{--                                               data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>--}}
+                                            {{--                                            <a v-bind:href="'/flows/delete/'+flow.id"--}}
+                                            {{--                                               class="toConfirm"--}}
+                                            {{--                                               data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>--}}
 
-{{--                                            <a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal--}}
-{{--                                                JQuery</a>--}}
+                                            {{--                                            <a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal--}}
+                                            {{--                                                JQuery</a>--}}
                                             <a href="#" @click="show=true"
                                                v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', '/flows/delete/'+flow.id)"><span
                                                     class="badge badge-danger">TEST
@@ -129,12 +129,12 @@
                                     @{{ modalContent }}
                                 </div>
                                 <div class="modal-footer">
-{{--                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"--}}
-{{--                                       data-dismiss="modal" @click="show=false">Annuler</a>--}}
+                                    {{--                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"--}}
+                                    {{--                                       data-dismiss="modal" @click="show=false">Annuler</a>--}}
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             @click="show=false">Annuler
                                     </button>
-{{--                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
+                                    {{--                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
                                     <a v-bind:href="href" type="button" class="btn btn-danger" role="button"
                                        @click="show=false">Supprimer</a>
                                 </div>
@@ -144,33 +144,33 @@
 
 
                     <!-- Button trigger modal -->
-{{--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">--}}
-{{--                        Launch demo modal--}}
-{{--                    </button>--}}
-{{--                    <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">--}}
-{{--                        Soumettre--}}
-{{--                    </button>--}}
-{{--                    <!-- Modal -->--}}
-{{--                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"--}}
-{{--                         aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--                        <div class="modal-dialog" role="document">--}}
-{{--                            <div class="modal-content">--}}
-{{--                                <div class="modal-header">--}}
-{{--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
-{{--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                                        <span aria-hidden="true">&times;</span>--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                                <div class="modal-body">--}}
-{{--                                    ...--}}
-{{--                                </div>--}}
-{{--                                <div class="modal-footer">--}}
-{{--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                                    <button type="button" class="btn btn-primary">Save changes</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">--}}
+                    {{--                        Launch demo modal--}}
+                    {{--                    </button>--}}
+                    {{--                    <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">--}}
+                    {{--                        Soumettre--}}
+                    {{--                    </button>--}}
+                    {{--                    <!-- Modal -->--}}
+                    {{--                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"--}}
+                    {{--                         aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+                    {{--                        <div class="modal-dialog" role="document">--}}
+                    {{--                            <div class="modal-content">--}}
+                    {{--                                <div class="modal-header">--}}
+                    {{--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
+                    {{--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                    {{--                                        <span aria-hidden="true">&times;</span>--}}
+                    {{--                                    </button>--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="modal-body">--}}
+                    {{--                                    ...--}}
+                    {{--                                </div>--}}
+                    {{--                                <div class="modal-footer">--}}
+                    {{--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+                    {{--                                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
                 </div>
             </div>
@@ -191,14 +191,12 @@
                                 error: false,
                                 show: false,
                                 loaded: false,
-                                modalTitle:'',
-                                modalContent:'',
+                                modalTitle: '',
+                                modalContent: '',
                                 href: '',
-                                // toDelete: false,
                             },
                             methods: {
                                 warnBeforeDelete: function (message, content, href) {
-                                    // maintenant nous avons accès à l'évènement natif
                                     this.modalTitle = message;
                                     this.modalContent = content;
                                     this.href = href;
@@ -216,40 +214,41 @@
                                 }
                             },
                             mounted() {
-
+                                if (typeof categories === "undefined") {
+                                    console.log('rien');
+                                    this.loaded = true;
+                                }
                                 let toLoad = 0; // au début de l'asynchrone
 
                                 for (let c = 0; c < this.categories.length; c++) {
                                     let category = this.categories[c];
                                     this.categories[c].allNews = [];
-                                    // console.log(category);
-                                    // console.log(category.name);
 
                                     for (let f = 0; f < category.flows.length; f++) {
                                         let flow = category.flows[f];
                                         // console.log("---", flow.name)
                                         toLoad++; //compte les flux
 
+                                        if (typeof flow === "undefined") {
+                                            this.loaded = true;
+                                        }
+
                                         axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID, Axios en requête GET
                                             .then((response) => {
                                                 // handle success
+
                                                 flow.news = response.data;
                                                 // console.log(response.data);
 
                                                 for (const article of response.data) {
                                                     this.allNews.push(article);
                                                     this.categories[c].allNews.push(article);
-                                                    // this.pubDate = article.article_date;
-
-                                                    // console.log(typeof this.pubDate); //string
-                                                    // console.log(this.pubDate)  // renvoie la date de publication de l'article
                                                 }
-
 
                                             })
                                             .catch(function (error) {
                                                 // handle error
-                                                console.log("flow id", flow.id);
+                                                // console.log("flow id", flow.id);
                                                 console.log(error);
 
                                             })
@@ -257,6 +256,8 @@
                                                 // always executed
 
                                                 toLoad--; //flux chargé
+
+
                                                 if (toLoad == 0) { //quand tous les flux sont chargés, on peut trier les articles
                                                     // console.log("triez maintenant");
                                                     // console.log(this.allNews); //undefined, mais résolu avec fonction anonyme fléchée = on ne perd plus le this
