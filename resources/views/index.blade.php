@@ -63,9 +63,7 @@
                             </ul>
                         </div>
 
-                        <div id="flowsContent">Les flux doivent s'afficher ci-dessous, les news doivent être par triées
-                            par
-                            date décroissante.
+                        <div id="flowsContent">
                             {{--                        <h5>Tout récemment</h5>--}}
                             {{--                        <ul>--}}
                             {{--                            <li v-for="anew in latest">--}}
@@ -88,7 +86,8 @@
                             {{--                                <ul>--}}
                             {{--                                    <li v-for="flow in category.flows">--}}
 
-                            <p>Bonne lecture !</p>
+                            <p v-show="empty">Les articles de vos flux s'afficheront ici, triés par
+                                date décroissante. Pour le moment, votre liste de lecture est vide. Ajoutez un site !</p>
                             <ul>
                                 <li v-for="anew in currentList">
                                     <a v-bind:href="anew.article_link">
@@ -191,6 +190,7 @@
                                 error: false,
                                 show: false,
                                 loaded: false,
+                                empty:true,
                                 modalTitle: '',
                                 modalContent: '',
                                 href: '',
@@ -268,6 +268,8 @@
 
 
                                                     this.loaded = true; // toutes les news sont chargées, on cache le loader
+
+                                                    this.empty=false;
 
                                                     this.allNews = this.allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
