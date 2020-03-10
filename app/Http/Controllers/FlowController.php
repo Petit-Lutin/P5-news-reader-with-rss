@@ -35,7 +35,6 @@ class FlowController extends Controller
 //            ->withFlows($flows)
             ->withCategories($categories)
             ->withJsonCategories(json_encode($categories));
-//            ->withSuperTruc('bonjour');
     }
 
     /**
@@ -45,10 +44,10 @@ class FlowController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name')->get();
+        $user = Auth::user();
+        $categories = $user->categoriesOrderBy;
+//        $categories = Category::orderBy('name')->get();
         return view('flows/create')->withCategories($categories);
-
-
     }
 
     /**
@@ -62,11 +61,9 @@ class FlowController extends Controller
     {
         $inputs = $request->all();
         if ($request->input('category_id') == '-1') {
-
-            $category = Category::create(['name' => $request->input('category_name'),'user_id'=>Auth::user()->id]);
+            $category = Category::create(['name' => $request->input('category_name'), 'user_id' => Auth::user()->id]);
             $inputs ['category_id'] = $category->id;
         }
-//        dd($inputs);
         $flow = Flow::create($inputs);
         return redirect('/index');
     }
@@ -96,7 +93,9 @@ class FlowController extends Controller
     public
     function edit($id)
     {
-        $categories = Category::orderBy('name')->get();
+        $user = Auth::user();
+        $categories = $user->categoriesOrderBy;
+//        $categories = Category::orderBy('name')->get();
 
         $flow = null;
         try {
