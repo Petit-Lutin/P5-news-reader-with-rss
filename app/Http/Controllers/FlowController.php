@@ -25,7 +25,7 @@ class FlowController extends Controller
     {
 //        $flows = Flow::orderBy('name')->get();
         $user = Auth::user();
-        $categories = $user->categoriesOrderBy;
+        $categories = $user->categoriesOrderBy; //les catégories sont spécifiques à un utilisateurs
 //        dd($categories);
 //        $categories = Category::orderBy('name')->get();
         foreach ($categories as $category) {
@@ -47,6 +47,8 @@ class FlowController extends Controller
     {
         $categories = Category::orderBy('name')->get();
         return view('flows/create')->withCategories($categories);
+
+
     }
 
     /**
@@ -60,7 +62,8 @@ class FlowController extends Controller
     {
         $inputs = $request->all();
         if ($request->input('category_id') == '-1') {
-            $category = Category::create(['name' => $request->input('category_name')]);
+
+            $category = Category::create(['name' => $request->input('category_name'),'user_id'=>Auth::user()->id]);
             $inputs ['category_id'] = $category->id;
         }
 //        dd($inputs);

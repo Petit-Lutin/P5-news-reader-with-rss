@@ -12,7 +12,7 @@
                     {{csrf_field()}}
                     <label for="flowName">Nom du flux à suivre</label>
                     <input class="form-control" type="text" name="name" @error('name') is-invalid
-                           @enderror value="{{old("name",$flow->name)}}" id="flowName"required>
+                           @enderror value="{{old("name",$flow->name)}}" id="flowName" required>
                     @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -29,7 +29,7 @@
                         @foreach($categories as $categorie)
                             <option value="{{$categorie->id}}" onclick="displayNewCategory()"
                                     @if (old("category_id",$flow->category_id)==$categorie->id) selected
-                                     @endif
+                                @endif
                             >{{$categorie->name}}</option>
                         @endforeach
                     </select>
@@ -57,22 +57,9 @@
 @endsection
 
 @section('scripts')
-{{--    <script src="public/js/inputNewCategory.js">--}}
-    <script>
-        function displayNewCategory() {
-            var isSelected = document.getElementById("mySelect").selectedIndex;
-            var valueOption = document.getElementsByTagName("option")[isSelected].value;
-            // console.log(document.getElementsByTagName("option")[isSelected].value);
-            if (valueOption == "-1") {// si "Nouvelle catégorie" est sélectionné dans la liste déroulante
-                document.getElementById("newCategory").style.display = "block"; //on affiche une zone de texte pour saisir cette nouvelle catégorie
-                document.getElementById("newCategoryLabel").style.display = "block"; //on affiche une zone de texte pour saisir cette nouvelle catégorie
-            } else {
-                document.getElementById("newCategory").style.display = "none"; // et si on clique finalement sur le nom d'une catégorie, la zone de texte est masquée
-                document.getElementById("newCategoryLabel").style.display = "none"; // et si on clique finalement sur le nom d'une catégorie, la zone de texte est masquée
-            }
-        }
-    </script>
+    @include('flows/script')
 @endsection
+
 @section('footer')
     @include('footer')
 @endsection

@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
+//Route::get('protege', function () {
+//    return 'affichage de la route protégé';
+//})->middleware('verified');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Flux
@@ -30,7 +35,6 @@ Route::get('/flows/show/{id}', 'FlowController@show');
 Route::get('/flows/edit/{id}', 'FlowController@edit');
 Route::post('/flows/edit/{id}', 'FlowController@update');
 Route::get('/flows/delete/{id}', 'FlowController@destroy');
-
 
 
 //Catégories de flux

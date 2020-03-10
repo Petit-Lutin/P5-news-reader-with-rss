@@ -45,14 +45,14 @@
                                                     class="badge badge-primary">Voir</span></a>
                                             <a v-bind:href="'/flows/edit/'+flow.id"><span
                                                     class="badge badge-info">Modifier</span></a>
-                                            <a v-bind:href="'/flows/delete/'+flow.id"
-                                               class="toConfirm"
-                                               data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>
+{{--                                            <a v-bind:href="'/flows/delete/'+flow.id"--}}
+{{--                                               class="toConfirm"--}}
+{{--                                               data-message="Voulez-vous vraiment retirer ce site ?">Supprimer</a>--}}
 
-                                            <a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal
-                                                JQuery</a>
-                                            <a v-bind:href="'/flows/delete/'+flow.id" @click="show=true"
-                                               v-on:click.self="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', $event, $href)"><span
+{{--                                            <a href="#" data-toggle="modal" data-target="#exampleModal">TEST modal--}}
+{{--                                                JQuery</a>--}}
+                                            <a href="#" @click="show=true"
+                                               v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', '/flows/delete/'+flow.id)"><span
                                                     class="badge badge-danger">TEST
                                                     modal Vue</span></a>
 
@@ -129,12 +129,12 @@
                                     @{{ modalContent }}
                                 </div>
                                 <div class="modal-footer">
-                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"
-                                       data-dismiss="modal" @click="show=false">Annuler</a>
+{{--                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"--}}
+{{--                                       data-dismiss="modal" @click="show=false">Annuler</a>--}}
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             @click="show=false">Annuler
                                     </button>
-                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>
+{{--                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
                                     <a v-bind:href="href" type="button" class="btn btn-danger" role="button"
                                        @click="show=false">Supprimer</a>
                                 </div>
@@ -144,33 +144,33 @@
 
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button>
-                    <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">
-                        Soumettre
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">--}}
+{{--                        Launch demo modal--}}
+{{--                    </button>--}}
+{{--                    <button @click="show=true" v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', $event)">--}}
+{{--                        Soumettre--}}
+{{--                    </button>--}}
+{{--                    <!-- Modal -->--}}
+{{--                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"--}}
+{{--                         aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+{{--                        <div class="modal-dialog" role="document">--}}
+{{--                            <div class="modal-content">--}}
+{{--                                <div class="modal-header">--}}
+{{--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--}}
+{{--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                                        <span aria-hidden="true">&times;</span>--}}
+{{--                                    </button>--}}
+{{--                                </div>--}}
+{{--                                <div class="modal-body">--}}
+{{--                                    ...--}}
+{{--                                </div>--}}
+{{--                                <div class="modal-footer">--}}
+{{--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                                    <button type="button" class="btn btn-primary">Save changes</button>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
             </div>
@@ -191,21 +191,23 @@
                                 error: false,
                                 show: false,
                                 loaded: false,
-                                href: '/flows/delete/',
+                                modalTitle:'',
+                                modalContent:'',
+                                href: '',
                                 // toDelete: false,
                             },
                             methods: {
-                                warnBeforeDelete: function (message, content, event, href) {
+                                warnBeforeDelete: function (message, content, href) {
                                     // maintenant nous avons accès à l'évènement natif
                                     this.modalTitle = message;
                                     this.modalContent = content;
                                     this.href = href;
                                     // event.stopPropagation()
-                                    event.preventDefault()
-                                    console.log(href)
-                                    if (event) {
-
-                                    }
+                                    // event.preventDefault()
+                                    console.log(href);
+                                    // if (event) {
+                                    //
+                                    // }
                                     // if (!confirm(message)){
                                     //     event.preventDefault()
                                     //
