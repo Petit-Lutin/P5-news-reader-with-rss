@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Flow;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
+
+//use SimpleXMLElement;
 
 class RssController extends Controller
 {
@@ -39,7 +40,8 @@ class RssController extends Controller
     function getJson($id)
     {
         $flow = Flow::findOrFail($id);
-
+        //todo:vérifier que Auth guest = false (tableau)
+//todo:vérifier que le flux appartient bien à l'utilisateur connecté, remonter aux catégories et à l'utilisateur, Auth::user()->id
         $xml = $flow->url;
 
         // pour définir un user-agent
@@ -103,7 +105,7 @@ class RssController extends Controller
                     "article_link" => $item_link,
                     "article_description" => $item_desc,
                     "article_date" => $item_date,
-                    "article_timestamp"=>$item_timestamp
+                    "article_timestamp" => $item_timestamp
                 ]);
             }
             // un flux et ses articles

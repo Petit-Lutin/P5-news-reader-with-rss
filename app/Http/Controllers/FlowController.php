@@ -6,6 +6,7 @@ use App\Category;
 use App\Flow;
 use Illuminate\Http\Request;
 use App\Http\Requests\FlowRequest;
+use Illuminate\Support\Facades\Auth;
 
 class FlowController extends Controller
 {
@@ -23,7 +24,10 @@ class FlowController extends Controller
     public function index()
     {
 //        $flows = Flow::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+        $user = Auth::user();
+        $categories = $user->categoriesOrderBy;
+//        dd($categories);
+//        $categories = Category::orderBy('name')->get();
         foreach ($categories as $category) {
             $category->flows;
         }

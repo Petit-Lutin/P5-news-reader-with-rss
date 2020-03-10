@@ -113,36 +113,37 @@
                             {{--                        </ul>--}}
                         </div>
                     </div>
-                {{--                <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"--}}
-                {{--                     role="dialog"--}}
-                {{--                     aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-                {{--                    <div class="modal-dialog" role="document">--}}
-                {{--                        <div class="modal-content">--}}
-                {{--                            <div class="modal-header">--}}
-                {{--                                <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>--}}
-                {{--                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"--}}
-                {{--                                        @click="show=false">--}}
-                {{--                                    <span aria-hidden="true">&times;</span>--}}
-                {{--                                </button>--}}
-                {{--                            </div>--}}
-                {{--                            <div class="modal-body">--}}
-                {{--                                @{{ modalContent }}--}}
-                {{--                            </div>--}}
-                {{--                            <div class="modal-footer">--}}
-                {{--                                --}}{{--                                <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button" data-dismiss="modal" @click="show=false">Annuler</a>--}}
-                {{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal"--}}
-                {{--                                        @click="show=false">Annuler--}}
-                {{--                                </button>--}}
-                {{--                                --}}{{--                                <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
-                {{--                                <a v-bind:href="href" type="button" class="btn btn-danger" role="button"--}}
-                {{--                                   @click="show=false">Supprimer</a>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
+                    <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"
+                         role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                            @click="show=false">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @{{ modalContent }}
+                                </div>
+                                <div class="modal-footer">
+                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"
+                                       data-dismiss="modal" @click="show=false">Annuler</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                            @click="show=false">Annuler
+                                    </button>
+                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>
+                                    <a v-bind:href="href" type="button" class="btn btn-danger" role="button"
+                                       @click="show=false">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-                <!-- Button trigger modal -->
+                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Launch demo modal
                     </button>
@@ -193,25 +194,25 @@
                                 href: '/flows/delete/',
                                 // toDelete: false,
                             },
-                            // methods: {
-                            //     warnBeforeDelete: function (message, content, event, href) {
-                            //         // maintenant nous avons accès à l'évènement natif
-                            //         this.modalTitle = message,
-                            //             this.modalContent = content
-                            //         href = this.href
-                            //         event.stopPropagation()
-                            //         event.preventDefault()
-                            //         console.log(href)
-                            //         if (event) {
-                            //
-                            //         }
-                            //         // if (!confirm(message)){
-                            //         //     event.preventDefault()
-                            //         //
-                            //         // }
-                            //         // show: false
-                            //     }
-                            // },
+                            methods: {
+                                warnBeforeDelete: function (message, content, event, href) {
+                                    // maintenant nous avons accès à l'évènement natif
+                                    this.modalTitle = message;
+                                    this.modalContent = content;
+                                    this.href = href;
+                                    // event.stopPropagation()
+                                    event.preventDefault()
+                                    console.log(href)
+                                    if (event) {
+
+                                    }
+                                    // if (!confirm(message)){
+                                    //     event.preventDefault()
+                                    //
+                                    // }
+                                    // show: false
+                                }
+                            },
                             mounted() {
 
                                 let toLoad = 0; // au début de l'asynchrone

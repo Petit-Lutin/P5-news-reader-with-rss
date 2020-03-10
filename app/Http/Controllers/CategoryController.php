@@ -6,6 +6,7 @@ use App\Category;
 use App\Flow;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -37,7 +38,11 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
+        $data=$request->all();
+        $data['user_id']=Auth::user()->id;
+
+        $category = Category::create($data); //on vérifie que l'utilisateur est bien connecté et que la
+
         return redirect('/index');
     }
 
