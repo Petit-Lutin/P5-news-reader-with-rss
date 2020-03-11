@@ -4,47 +4,48 @@
         <div class="card">
             <header class="card-header">
                 <div class="row">
-                    <div class="col text-center">
+                    <div class="col ">
+                        <a class="btn btn-success" href="/index">Rafraîchir <i
+                                class="fas fa-sync-alt"></i></a>
                         <a class="btn btn-primary text-center" href="/flows/create">Ajouter un site</a>
                     </div>
                     <div class="col"><h3 class="card-header-title">Mes abonnements RSS</h3>
                     </div>
                 </div>
             </header>
+
             <div class="card-content">
                 <div id="content">
 
-
                     <div class="indexContent">
+                        {{--                        panneau latéral avec affichage des catégories et des flux--}}
                         <div id="flowsList">
+                            <ul id="listCategories">
+                                <li v-for="category in categories"><h4><a href="#"
+                                                                          @click="currentList=category.allNews">
+                                            <i class="fas fa-book-open"></i> @{{category.name}}</a>
+                                        <small>
+                                            <a
+                                                v-bind:href="'/categories/edit/'+category.id"
+                                                role="button"><span
+                                                    class="badge badge-primary">Modifier <i
+                                                        class="fas fa-pencil-alt"></i></span></a>
+                                            <a href="#" @click="show=true" role="button"
+                                               v-on:click="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', '/categories/delete/'+category.id)">
+                                                <span class="badge badge-danger">Supprimer <i class="fas fa-trash-alt"></i></span></a>
+                                        </small></h4>
 
+                                    <ul id="listFlux">
+                                        <li v-for="flow in category.flows"><a href="#"
+                                                                              @click="currentList=flow.news"><i
+                                                    class="fas fa-bookmark"></i> @{{flow.name}}</a>
 
-                            <ul>
-                                <li v-for="category in categories"><h4>@{{category.name}}
-                                        <a href="#" @click="currentList=category.allNews"
-                                           class="btn btn-primary btn-sm"
-                                           role="button">Voir</a>
-                                        <a
-                                            v-bind:href="'/categories/edit/'+category.id"
-                                            class="btn btn-primary btn-sm"
-                                            role="button">Modifier</a>
-                                        <a href="#" @click="show=true"
-                                           class="btn btn-danger btn-sm" role="button"
-                                           v-on:click="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', '/categories/delete/'+category.id)">
-                                            Supprimer</a>
-
-                                    </h4>
-
-
-                                    <ul>
-                                        <li v-for="flow in category.flows">
-                                            @{{flow.name}} <a href="#" @click="currentList=flow.news"><span
-                                                    class="badge badge-success">Voir</span></a>
                                             <a v-bind:href="'/flows/edit/'+flow.id"><span
-                                                    class="badge badge-primary">Modifier</span></a>
+                                                    class="badge badge-primary"><i class="fas fa-pencil-alt"></i></span></a>
                                             <a href="#" @click="show=true"
-                                               v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', '/flows/delete/'+flow.id)"><span
-                                                    class="badge badge-danger">Supprimer</span></a>
+                                               v-on:click="warnBeforeDelete('Voulez-vous supprimer ce site ?', 'Tous les articles de ce site disparaîtront de votre fil de lecture.', '/flows/delete/'+flow.id)">
+                                                <span class="badge badge-danger"><i
+                                                        class="fas fa-trash-alt"></i></span></a>
 
                                         </li>
                                     </ul>
@@ -54,53 +55,33 @@
                         </div>
 
                         <div id="flowsContent">
-                            <h5>Tout récemment</h5>
-                            <ul>
-                                <li v-for="anew in latest">
-
-                                    <h5>
-                                        <a v-bind:href="anew.article_link">@{{anew.article_title}}</a>, le
-                                        @{{ anew.article_date }}
-                                    </h5>
-
-{{--todo:trier les news selon le flux/catégories dans latest--}}
-                                </li>
-                            </ul>
                             <div v-show="!loaded" class="loader">
                                 <div class="loadingCircle"></div>
                             </div>
-
-                            <button v-if="error" class="btn btn-primary">@{{error}}</button>
+                            <p v-show="empty">Les articles de vos flux s'afficheront ici, triés par
+                                date décroissante. Pour le moment, votre liste de lecture est vide.
+                                Ajoutez un site
+                                !</p>
                             <ul>
                                 <li v-for="category in categories"> @{{ category.category_name}}
                                     <ul>
                                         <li v-for="flow in category.flows">
 
-                                            <p v-show="empty">Les articles de vos flux s'afficheront ici, triés par
-                                                date décroissante. Pour le moment, votre liste de lecture est vide.
-                                                Ajoutez un site
-                                                !</p>
+
                                             <ul>
                                                 <li v-for="anew in currentList">
                                                     <a v-bind:href="anew.article_link">
                                                         @{{ anew.article_title }}</a>, @{{ anew.article_date }}
                                                 </li>
                                             </ul>
-                                            <ul>
-                                                <li v-for="anew in flow.news"> @{{anew.article_title}} : <a
-                                                        v-bind:href="anew.article_link">Lire
-                                                        l'article sur le site</a>,
-                                                    le @{{ anew.article_date }} <br>
-
-                                                </li>
-                                            </ul>
-
                                         </li>
+
+
                                     </ul>
                                 </li>
-
-
                             </ul>
+
+
                         </div>
                     </div>
                     <div v-show="show" v-bind:class="{'show':show}" class="modal fade" id="exampleModal" tabindex="-1"
@@ -119,12 +100,10 @@
                                     @{{ modalContent }}
                                 </div>
                                 <div class="modal-footer">
-                                    {{--                                    <a v-on:click.stop.prevent="doThat" class="btn btn-secondary" role="button"--}}
-                                    {{--                                       data-dismiss="modal" @click="show=false">Annuler</a>--}}
+
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             @click="show=false">Annuler
                                     </button>
-                                    {{--                                    <button type="button" class="btn btn-danger" @click="show=false">Supprimer</button>--}}
                                     <a v-bind:href="href" type="button" class="btn btn-danger" role="button"
                                        @click="show=false">Supprimer</a>
                                 </div>
@@ -148,7 +127,7 @@
                                 categories:{!!$jsonCategories!!},
                                 currentList: [], // obj littéral qui contient un tableau flows qui contient un tableau news
                                 allNews: [],
-                                latest: [],
+                                // latest: [],
                                 error: false,
                                 show: false,
                                 loaded: false,
@@ -162,25 +141,16 @@
                                     this.modalTitle = message;
                                     this.modalContent = content;
                                     this.href = href;
-                                    // event.stopPropagation()
-                                    // event.preventDefault()
                                     console.log(href);
-                                    // if (event) {
-                                    //
-                                    // }
-                                    // if (!confirm(message)){
-                                    //     event.preventDefault()
-                                    //
-                                    // }
-                                    // show: false
                                 }
                             },
                             mounted() {
-                                if (typeof categories === "undefined") {
-                                    this.loaded = true;
-                                }
-                                let toLoad = 0; // au début de l'asynchrone
 
+                                let toLoad = 0; // au début de l'asynchrone
+                                if (typeof categories === "undefined") {
+                                    // this.loaded = true;
+                                    toLoad = 0;
+                                }
                                 for (let c = 0; c < this.categories.length; c++) {
                                     let category = this.categories[c];
                                     this.categories[c].allNews = [];
@@ -190,8 +160,9 @@
                                         // console.log("---", flow.name)
                                         toLoad++; //compte les flux
 
-                                        if (typeof flow === "undefined") {
-                                            this.loaded = true;
+                                        if (typeof flow === "undefined") { //si pas de flux à afficher ou à charger, on cache le loader
+                                            // this.loaded = true;
+                                            toLoad = 0;
                                         }
 
                                         axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID, Axios en requête GET
@@ -199,7 +170,6 @@
                                                 // handle success
 
                                                 flow.news = response.data;
-                                                // console.log(response.data);
 
                                                 for (const article of response.data) {
                                                     this.allNews.push(article);
@@ -209,23 +179,14 @@
                                             })
                                             .catch(function (error) {
                                                 // handle error
-                                                // console.log("flow id", flow.id);
                                                 console.log(error);
 
                                             })
                                             .finally(() => {
                                                 // always executed
-
                                                 toLoad--; //flux chargé
 
-
                                                 if (toLoad == 0) { //quand tous les flux sont chargés, on peut trier les articles
-                                                    // console.log("triez maintenant");
-                                                    // console.log(this.allNews); //undefined, mais résolu avec fonction anonyme fléchée = on ne perd plus le this
-                                                    // console.log(flow.news); // retourne bien les news, array
-                                                    // array.sort sur allNews par date antichrono
-                                                    // console.log(article); // retourne bien les news, obj
-                                                    // console.log(flow.news.article_date); // retourne bien les dates des news
 
 
                                                     this.loaded = true; // toutes les news sont chargées, on cache le loader
@@ -233,15 +194,15 @@
                                                     this.empty = false;
 
                                                     this.allNews = this.allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
-                                                    this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
 
                                                     for (i = 0; i < this.categories.length; i++) {
                                                         this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     }
+                                                    // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
+                                                    // this.allNews= this.allNews.splice(this.allNews.length, 5); // les 5 dernières news affichées à part
 
                                                     this.currentList = this.allNews;
                                                 }
-
                                             });
                                     }
                                 }

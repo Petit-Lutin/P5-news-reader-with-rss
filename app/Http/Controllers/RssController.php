@@ -65,13 +65,12 @@ class RssController extends Controller
                 $date = $x->item($i)->getElementsByTagName('pubDate')
                     ->item(0)->childNodes->item(0)->nodeValue;
 
-
-//                $item_date=\Carbon\Carbon::createFromFormat('Y-m-d H',$date);
+//date retournée en français
                 $date = \Carbon\Carbon::parse($date);
                 $date->locale('fr_FR');
                 $item_date = $date->isoFormat('LLLL');
-//                $item_date = $item_date->format('l j F Y H:i:s');
-//                dd($date, $item_date);
+
+                //on utilise le timestamp pour pouvoir trier les dates en JS
                 $item_timestamp = $date->timestamp;
                 $item_desc = "";
                 if ($x->item($i)->getElementsByTagName('description')

@@ -1,6 +1,7 @@
-#content{
+#content {
     background: #f3faff;
 }
+
 .indexContent {
     display: flex;
 }
@@ -11,16 +12,26 @@
     margin: 5px;
     padding: 5px;
     background: white;
-    flex:70%;
+    flex: 70%;
 }
 
 .container.containerIndex {
-   max-width: 80%;
+    max-width: 80%;
 }
 
-#flowsList{
-    padding-top:10px;
+#flowsList {
+    padding-top: 10px;
+    flex: 30%;
 }
+
+#listCategories {
+    padding-left: 15px;
+}
+
+#listFlux {
+    padding-left: 25px;
+}
+
 .show {
     display: block;
 }
