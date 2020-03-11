@@ -28,11 +28,12 @@
                                             <a
                                                 v-bind:href="'/categories/edit/'+category.id"
                                                 role="button"><span
-                                                    class="badge badge-primary">Modifier <i
+                                                    class="badge badge-primary bouton">Modifier <i
                                                         class="fas fa-pencil-alt"></i></span></a>
                                             <a href="#" @click="show=true" role="button"
                                                v-on:click="warnBeforeDelete('Voulez-vous supprimer cette catégorie ?', 'Tous les sites de cette catégorie - et tous les articles de ces sites - seront également supprimés et disparaîtront de votre fil de lecture.', '/categories/delete/'+category.id)">
-                                                <span class="badge badge-danger">Supprimer <i class="fas fa-trash-alt"></i></span></a>
+                                                <span class="badge badge-danger bouton">Supprimer <i
+                                                        class="fas fa-trash-alt"></i></span></a>
                                         </small></h4>
 
                                     <ul id="listFlux">
@@ -62,22 +63,13 @@
                                 date décroissante. Pour le moment, votre liste de lecture est vide.
                                 Ajoutez un site
                                 !</p>
+
+
                             <ul>
-                                <li v-for="category in categories"> @{{ category.category_name}}
-                                    <ul>
-                                        <li v-for="flow in category.flows">
-
-
-                                            <ul>
-                                                <li v-for="anew in currentList">
-                                                    <a v-bind:href="anew.article_link">
-                                                        @{{ anew.article_title }}</a>, @{{ anew.article_date }}
-                                                </li>
-                                            </ul>
-                                        </li>
-
-
-                                    </ul>
+                                <li v-for="anew in currentList">
+                                  @{{ anew.channel_title }} :
+                                    <a v-bind:href="anew.article_link">@{{ anew.article_title }}</a>, <span class="text-muted date"> @{{
+                                    anew.article_date }}</span>
                                 </li>
                             </ul>
 
@@ -168,7 +160,6 @@
                                         axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID, Axios en requête GET
                                             .then((response) => {
                                                 // handle success
-
                                                 flow.news = response.data;
 
                                                 for (const article of response.data) {

@@ -84,35 +84,13 @@ class RssController extends Controller
                     "article_link" => $item_link,
                     "article_description" => $item_desc,
                     "article_date" => $item_date,
-                    "article_timestamp" => $item_timestamp
+                    "article_timestamp" => $item_timestamp,
+                    "channel_title" => $channel_title,
+                    "channel_link" => $channel_link,
+                    "channel_description" => $channel_desc
                 ]);
             }
-            // un flux et ses articles
-            array_push($flowInfo, [
-                "channel_title" => $channel_title,
-                "channel_link" => $channel_link,
-                "channel_description" => $channel_desc,
-                "news" => $articles
-            ]);
-
-//            foreach ($categories as $category) {
-//                array_push($category, [
-//                        "category_name" => $category_name,
-//                        "category_id" => $category_id,
-//                        [
-//                            "flowInfo" => $flowInfo
-//                        ]
-//                    ]
-//                );
-//            };
-//            array_push($news, [
-//            $news["channel_title"] = $channel_title;
-//            $news["channel_link"] = $channel_link;
-//            $news["channel_description"] = $channel_desc;
-//            $news["news"] = $articles;
-
         }
-
 
         return response()->json($articles);
     }

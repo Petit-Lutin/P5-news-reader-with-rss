@@ -5,6 +5,21 @@
 .indexContent {
     display: flex;
 }
+#listCategories {
+    padding-left: 15px;
+}
+#listCategories li a{
+    color:#1b4b72;
+}
+.bouton{
+    font-weight: unset;
+}
+#listFlux {
+    padding-left: 25px;
+}
+#listFlux li a{
+    color: #1d68a7;
+}
 
 #flowsContent {
     border: 1px solid #c1ddf2;
@@ -14,7 +29,9 @@
     background: white;
     flex: 70%;
 }
-
+#flowsContent ul{
+    padding-left: 20px;
+}
 .container.containerIndex {
     max-width: 80%;
 }
@@ -24,14 +41,9 @@
     flex: 30%;
 }
 
-#listCategories {
-    padding-left: 15px;
+.date{
+    font-style: italic;
 }
-
-#listFlux {
-    padding-left: 25px;
-}
-
 .show {
     display: block;
 }
@@ -91,3 +103,9 @@ navbar-expand.footer {
     bottom: 0;
 }
 
+@media all and (max-width: 600px){
+    .indexContent {
+        flex-wrap: wrap;
+    }
+
+}
