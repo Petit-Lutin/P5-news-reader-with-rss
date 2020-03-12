@@ -120,7 +120,7 @@ class CategoryController extends Controller
 //        if ($flows->count()==0) {
 
 //           dd($category);
-        return back()->with('info', 'La catégorie a bien été supprimée dans la base de données.');
+//        return back()->with('info', 'La catégorie a bien été supprimée dans la base de données.');
 //        }
         return redirect('/index');
 //

@@ -44,7 +44,7 @@ Route::post('/categories/create', 'CategoryController@store');
 Route::get('/categories/edit/{id}', 'CategoryController@edit');
 Route::post('/categories/edit/{id}', 'CategoryController@update');
 
-Route::get('/category/delete/{id}', 'CategoryController@destroy');
+Route::get('/categories/delete/{id}', 'CategoryController@destroy');
 
 
 Route::get('/getjson/{id}', 'RssController@getJson');

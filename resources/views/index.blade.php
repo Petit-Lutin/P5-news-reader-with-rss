@@ -9,7 +9,9 @@
                                 class="fas fa-sync-alt"></i></a>
                         <a class="btn btn-primary text-center" href="/flows/create">Ajouter un site</a>
                     </div>
-                    <div class="col"><h3 class="card-header-title">Mes abonnements RSS</h3>
+                    <div class="col"><h3 class="card-header-title"><img src="public/img/favicon.png"
+                                                                        alt="logo agrégateur flux RSS" width="30px">Mes
+                            abonnements RSS</h3>
                     </div>
                 </div>
             </header>
@@ -67,8 +69,9 @@
 
                             <ul>
                                 <li v-for="anew in currentList">
-                                  @{{ anew.channel_title }} :
-                                    <a v-bind:href="anew.article_link">@{{ anew.article_title }}</a>, <span class="text-muted date"> @{{
+                                    @{{ anew.channel_title }} :
+                                    <a v-bind:href="anew.article_link">@{{ anew.article_title }}</a>, <span
+                                        class="text-muted date"> @{{
                                     anew.article_date }}</span>
                                 </li>
                             </ul>
@@ -139,12 +142,14 @@
                             mounted() {
 
                                 let toLoad = 0; // au début de l'asynchrone
-                                if (typeof categories === "undefined") {
-                                    // this.loaded = true;
+                                if (this.categories.length === 0) {
+                                    this.loaded = true;
+                                    flow = null;
                                     toLoad = 0;
                                 }
                                 for (let c = 0; c < this.categories.length; c++) {
                                     let category = this.categories[c];
+
                                     this.categories[c].allNews = [];
 
                                     for (let f = 0; f < category.flows.length; f++) {
@@ -153,7 +158,7 @@
                                         toLoad++; //compte les flux
 
                                         if (typeof flow === "undefined") { //si pas de flux à afficher ou à charger, on cache le loader
-                                            // this.loaded = true;
+                                            this.loaded = true;
                                             toLoad = 0;
                                         }
 

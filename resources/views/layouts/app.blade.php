@@ -9,6 +9,19 @@
 
     <title>{{ config('app.name', 'Agrégateur de flux RSS') }}</title>
 
+    <link rel="icon" type="image/x-icon" href="public/img/favicon.ico"/>
+    <link rel="icon" type="image/png" href="{{ asset('public/img/favicon.png') }}"/>
+
+    <meta property="og:title" content="{{ config('app.name', 'Agrégateur de flux RSS') }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:image:width" content="1280"/>
+    <meta property="og:image:height" content="854"/>
+
+    <meta property="og:description"
+          content="Pour faire votre veille ou être à jour de vos blogs préférés, l'agrégateur de flux RSS est l'outil qu'il vous faut !"/>
+
     <!-- Scripts -->
     {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
 
@@ -21,7 +34,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
           crossorigin="anonymous">
 
     <!-- Styles -->
@@ -33,7 +47,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Agrégateur de flux RSS') }}
+                <img src="public/img/favicon.png" alt="logo agrégateur flux RSS"> {{ config('app.name', 'Agrégateur de flux RSS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -88,7 +102,7 @@
     <main class="py-4">
         @yield('content')
     </main>@yield('footer')
-  </div>
+</div>
 @yield('scripts')
 
 
