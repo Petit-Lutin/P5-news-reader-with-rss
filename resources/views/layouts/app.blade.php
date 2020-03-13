@@ -48,7 +48,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="img/favicon.png" alt="logo agrégateur flux RSS" class="imgLogo"> {{ config('app.name', 'Agrégateur de flux RSS') }}
+                <img src="/img/favicon.png" alt="logo agrégateur flux RSS" class="imgLogo"> {{ config('app.name', 'Agrégateur de flux RSS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
