@@ -14,8 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('Pour finaliser votre inscription, un lien de confirmation vous a été envoyé par email." Before proceeding, please check your email for a verification link.') }}
-                    {{ __('Si vous ne l\'avez pas reçu,') }},
+                    {{ __('Pour finaliser votre inscription, un lien de confirmation vous a été envoyé par email.') }}
+                    {{ __('Si vous ne l\'avez pas reçu') }},
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
                         <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('cliquez ici pour en recevoir un nouveau') }}</button>.
