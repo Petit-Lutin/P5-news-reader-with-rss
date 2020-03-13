@@ -18,7 +18,7 @@ Partie backend en PHP avec le framework Laravel :
 
 Partie frontend en JavaScript avec le framework Vue.JS :
 * AJAX avec bibliothèque Axios
-* affichage des flux mis en forme (en cours)
+* affichage des flux mis en forme
 
 ----------------------------------------------
 
@@ -41,4 +41,4 @@ Backend in PHP with Laravel framework:
 
 Frontend in JavaScript with Vue.JS framework:
 * AJAX with Axios library
-* display of the RSS feeds (work in progress)
+* display of the RSS feeds
