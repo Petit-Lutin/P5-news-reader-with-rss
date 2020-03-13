@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
+Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
 //Route::get('protege', function () {
 //    return 'affichage de la route protégé';
 //})->middleware('verified');
@@ -25,7 +25,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Flux
-Route::get('/index', 'FlowController@index')->name('index');
+Route::get('/index', 'FlowController@index')->name('index')->middleware('verified');
 
 Route::get('/flows/create', 'FlowController@create');
 Route::post('/flows/create', 'FlowController@store');
