@@ -86,9 +86,6 @@ class CategoryController extends Controller
         }
         $category->name = $request->input("name");
         $category->save();
-//        echo "enregistrer";
-//        dd("enregistrer");
-//        return view('categories/edit')->withCategory($category);
         return redirect('/index');
 
     }
@@ -113,17 +110,6 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-        // For many relations:
-//        if ( $model->relation->isEmpty() ) {
-//            // ...
-//        }
-//        if ($flows->count()==0) {
-
-//           dd($category);
-//        return back()->with('info', 'La catégorie a bien été supprimée dans la base de données.');
-//        }
         return redirect('/index');
-//
-
     }
 }

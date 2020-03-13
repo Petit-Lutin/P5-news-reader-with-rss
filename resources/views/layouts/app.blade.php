@@ -3,21 +3,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pour faire votre veille ou être à jour de vos blogs préférés, l'agrégateur de flux RSS est l'outil qu'il vous faut !">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Agrégateur de flux RSS') }}</title>
 
-    <link rel="icon" type="image/x-icon" href="public/img/favicon.ico"/>
-    <link rel="icon" type="image/png" href="{{ asset('public/img/favicon.png') }}"/>
+{{--    <link rel="icon" type="image/x-icon" href="public/img/favicon.ico"/>--}}
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
 
     <meta property="og:title" content="{{ config('app.name', 'Agrégateur de flux RSS') }}"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:image:width" content="1280"/>
-    <meta property="og:image:height" content="854"/>
+    <meta property="og:url" content="http://laravel.laurenceplatzer.com"/>
+    <meta property="og:image" content="img/favicon.png"/>
+    <meta property="og:image:width" content="256"/>
+    <meta property="og:image:height" content="256"/>
 
     <meta property="og:description"
           content="Pour faire votre veille ou être à jour de vos blogs préférés, l'agrégateur de flux RSS est l'outil qu'il vous faut !"/>
@@ -47,7 +48,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="public/img/favicon.png" alt="logo agrégateur flux RSS"> {{ config('app.name', 'Agrégateur de flux RSS') }}
+                <img src="img/favicon.png" alt="logo agrégateur flux RSS" class="imgLogo"> {{ config('app.name', 'Agrégateur de flux RSS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"

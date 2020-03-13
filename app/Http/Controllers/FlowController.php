@@ -148,7 +148,6 @@ class FlowController extends Controller
     public
     function destroy($id)
     {
-        //public function destroy(Film $film)
         $flow = Flow::findOrFail($id);
         $flow->delete();
         return back()->with('info', 'Le flux a bien été supprimé dans la base de données.');

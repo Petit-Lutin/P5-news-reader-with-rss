@@ -9,8 +9,7 @@
                                 class="fas fa-sync-alt"></i></a>
                         <a class="btn btn-primary text-center" href="/flows/create">Ajouter un site</a>
                     </div>
-                    <div class="col"><h3 class="card-header-title"><img src="public/img/favicon.png"
-                                                                        alt="logo agrégateur flux RSS" width="30px">Mes
+                    <div class="col"><h3 class="card-header-title">Mes
                             abonnements RSS</h3>
                     </div>
                 </div>

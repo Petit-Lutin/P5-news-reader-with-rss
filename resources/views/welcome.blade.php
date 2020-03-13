@@ -81,7 +81,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Agrégateur de flux RSS
+                    Agrégateur de flux RSS <br>
+                    <img src="img/favicon.png" alt="logo agrégateur flux RSS"
                 </div>
 
 {{--                <div class="links">--}}

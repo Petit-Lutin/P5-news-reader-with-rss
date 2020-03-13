@@ -48,7 +48,7 @@ Route::get('/categories/delete/{id}', 'CategoryController@destroy');
 
 
 Route::get('/getjson/{id}', 'RssController@getJson');
-Route::get('/getmyjson/{id}', 'RssController@getMyJson'); //affichade des noeuds XLK avec SimpleXML
+//Route::get('/getmyjson/{id}', 'RssController@getMyJson'); //affichade des noeuds XLK avec SimpleXML
 
 //Footer
 Route::get('/mentionslegales', 'HomeController@mentionslegales');
