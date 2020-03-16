@@ -6,8 +6,22 @@
 
     <title>Agrégateur de flux RSS</title>
 
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+
+    <meta property="og:title" content="{{ config('app.name', 'Agrégateur de flux RSS') }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://laravel.laurenceplatzer.com"/>
+    <meta property="og:image" content="img/favicon.png"/>
+    <meta property="og:image:width" content="256"/>
+    <meta property="og:image:height" content="256"/>
+
+    <meta property="og:description"
+          content="Pour faire votre veille ou être à jour de vos blogs préférés, l'agrégateur de flux RSS est l'outil qu'il vous faut !"/>
+
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
 
     <!-- Styles -->
     <style>
