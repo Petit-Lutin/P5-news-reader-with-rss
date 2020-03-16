@@ -26,12 +26,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Flux
 Route::get('/index', 'FlowController@index')->name('index')->middleware('verified');
-
 Route::get('/flows/create', 'FlowController@create');
 Route::post('/flows/create', 'FlowController@store');
-
 Route::get('/flows/show/{id}', 'FlowController@show');
-
 Route::get('/flows/edit/{id}', 'FlowController@edit');
 Route::post('/flows/edit/{id}', 'FlowController@update');
 Route::get('/flows/delete/{id}', 'FlowController@destroy');
@@ -40,17 +37,13 @@ Route::get('/flows/delete/{id}', 'FlowController@destroy');
 //Catégories de flux
 Route::get('/categories/create', 'CategoryController@create');
 Route::post('/categories/create', 'CategoryController@store');
-
 Route::get('/categories/edit/{id}', 'CategoryController@edit');
 Route::post('/categories/edit/{id}', 'CategoryController@update');
-
 Route::get('/categories/delete/{id}', 'CategoryController@destroy');
 
-
 Route::get('/getjson/{id}', 'RssController@getJson');
-//Route::get('/getmyjson/{id}', 'RssController@getMyJson'); //affichade des noeuds XLK avec SimpleXML
 
 //Footer
-Route::get('/mentionslegales', 'HomeController@mentionslegales');
-Route::get('/politiqueconfidentialite', 'HomeController@politiqueconfidentialite');
+Route::get('/mentions-legales', 'HomeController@mentionslegales');
+Route::get('/politique-confidentialite', 'HomeController@politiqueconfidentialite');
 
