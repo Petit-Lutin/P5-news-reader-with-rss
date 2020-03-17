@@ -20,7 +20,7 @@ Auth::routes();
 Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
 
 //Utilisateur
-Route::get('/user/edit/{id}', 'UserController@index')->middleware('verified');
+Route::get('/user/edit/{id}', 'UserController@edit')->name('user/edit/')->middleware('verified');
 
 
 //Flux

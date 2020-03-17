@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+
     public function edit($id)
     {
 
-        $user = Auth::user();
-        return view('user/edit')->withCategory($category);
+        $user = Auth::user()->id;
+        return view('user/edit');
 
 
     }
