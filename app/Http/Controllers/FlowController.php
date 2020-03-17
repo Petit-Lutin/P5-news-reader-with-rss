@@ -29,11 +29,11 @@ class FlowController extends Controller
 //        dd($categories);
 //        $categories = Category::orderBy('name')->get();
         foreach ($categories as $category) {
-            $category->flows;
+            $category->flowsOrderBy; //sous-tableau de flux
         }
         return view('index')
 //            ->withFlows($flows)
-            ->withCategories($categories)
+//            ->withCategories($categories)
             ->withJsonCategories(json_encode($categories));
     }
 

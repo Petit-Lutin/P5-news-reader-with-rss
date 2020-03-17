@@ -20,12 +20,12 @@
                         class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span> @endif
                     <label>Dans la catégorie</label>
 
-                    <select class="form-control mySelect" id="mySelect" name="category_id" required>
+                    <select class="form-control mySelect" id="mySelect" name="category_id" onchange="displayNewCategory()" required>
                         <option value="" disabled selected>Choisir une catégorie</option>
-                        <option value="-1" onclick="displayNewCategory()">Nouvelle catégorie</option>
+                        <option value="-1" aonclick="displayNewCategory()">Nouvelle catégorie</option>
 
                         @foreach($categories as $categorie)
-                            <option value="{{$categorie->id}}" onclick="displayNewCategory()"
+                            <option value="{{$categorie->id}}" aonclick="displayNewCategory()"
                                     @if (old("category_id","")==$categorie->id) selected @endif
                             >{{$categorie->name}}</option>
                         @endforeach
@@ -46,7 +46,7 @@
                     @error('url')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    
+
                     @if ($errors->has('url')) <span
                         class="help-block"> <strong>{{ $errors->first('url') }}</strong> </span> @endif
 

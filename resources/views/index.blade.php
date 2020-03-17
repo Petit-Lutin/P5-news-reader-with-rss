@@ -38,7 +38,7 @@
                                         </small></h4>
 
                                     <ul id="listFlux">
-                                        <li v-for="flow in category.flows"><a href="#"
+                                        <li v-for="flow in category.flows_order_by"><a href="#"
                                                                               @click="currentList=flow.news"><i
                                                     class="fas fa-bookmark"></i> @{{flow.name}}</a>
 
@@ -151,8 +151,8 @@
 
                                     this.categories[c].allNews = [];
 
-                                    for (let f = 0; f < category.flows.length; f++) {
-                                        let flow = category.flows[f];
+                                    for (let f = 0; f < category.flows_order_by.length; f++) {
+                                        let flow = category.flows_order_by[f];
                                         // console.log("---", flow.name)
                                         toLoad++; //compte les flux
 
