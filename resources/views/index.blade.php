@@ -38,8 +38,13 @@
                                         </small></h4>
 
                                     <ul id="listFlux">
+<<<<<<< HEAD
                                         <li v-for="flow in category.flows_order_by"><a href="#"
                                                                                        @click="currentList=flow.news"><i
+=======
+                                        <li v-for="flow in category.flows"><a href="#"
+                                                                              @click="currentList=flow.news"><i
+>>>>>>> parent of c68f5af... affichage des flux par ordre alphabétique au sein des catégories, possibilité de consulter les mentions légales et la politique de confidentialité si on n'est pas connecté
                                                     class="fas fa-bookmark"></i> @{{flow.name}}</a>
 
                                             <a v-bind:href="'/flows/edit/'+flow.id"><span
@@ -151,8 +156,14 @@
 
                                     this.categories[c].allNews = [];
 
+<<<<<<< HEAD
                                     for (let f = 0; f < category.flows_order_by.length; f++) {
                                         let flow = category.flows_order_by[f];
+=======
+                                    for (let f = 0; f < category.flows.length; f++) {
+                                        let flow = category.flows[f];
+                                        // console.log("---", flow.name)
+>>>>>>> parent of c68f5af... affichage des flux par ordre alphabétique au sein des catégories, possibilité de consulter les mentions légales et la politique de confidentialité si on n'est pas connecté
                                         toLoad++; //compte les flux
 
                                         if (typeof flow === "undefined") { //si pas de flux à afficher ou à charger, on cache le loader

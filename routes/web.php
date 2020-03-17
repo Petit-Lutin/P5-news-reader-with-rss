@@ -19,10 +19,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
 
-//Utilisateur
-Route::get('/user/edit/{id}', 'UserController@edit')->name('user/edit/')->middleware('verified');
-
-
 //Flux
 Route::get('/index', 'FlowController@index')->name('index')->middleware('verified');
 Route::get('/flows/create', 'FlowController@create')->middleware('verified');
