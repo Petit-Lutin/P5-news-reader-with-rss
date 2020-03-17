@@ -113,7 +113,7 @@
                         sites préférés sans avoir à les consulter un par un, pour peu qu'ils aient un flux RSS.</h4>
                 </div>
                 <div class="explication">
-                    <h2 class="lead">Comment je m'en sers ?</h2>
+                    <h2 class="lead">Comment l'utiliser ?</h2>
                     <h4 class="text-justify">Créez votre compte, et ajoutez les flux RSS de vos sites préférés ! Vous
                         pouvez même les organiser en catégories pour affiner votre veille.</h4>
                 </div>
