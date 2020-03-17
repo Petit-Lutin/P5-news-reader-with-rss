@@ -9,7 +9,7 @@
 
                     <div class="card-body">
                         <p class="text-justify">
-                        <h4>Contenu et développement du site internet</h4>
+                        <h4>Développement du site internet</h4>
 
                         Laurence Platzer.
                         <hr>
