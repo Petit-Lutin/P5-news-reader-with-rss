@@ -39,7 +39,7 @@
 
                                     <ul id="listFlux">
                                         <li v-for="flow in category.flows_order_by"><a href="#"
-                                                                              @click="currentList=flow.news"><i
+                                                                                       @click="currentList=flow.news"><i
                                                     class="fas fa-bookmark"></i> @{{flow.name}}</a>
 
                                             <a v-bind:href="'/flows/edit/'+flow.id"><span
@@ -153,7 +153,6 @@
 
                                     for (let f = 0; f < category.flows_order_by.length; f++) {
                                         let flow = category.flows_order_by[f];
-                                        // console.log("---", flow.name)
                                         toLoad++; //compte les flux
 
                                         if (typeof flow === "undefined") { //si pas de flux à afficher ou à charger, on cache le loader
@@ -205,17 +204,6 @@
                         })
                     ;
 
-                    // const mesBalises = document.querySelectorAll(".toConfirm");
-                    //
-                    // for (i = 0; i < mesBalises.length; i++) {
-                    //     mesBalises[i].addEventListener("click", (e) => {
-                    //         let message = e.currentTarget.getAttribute("data-message"); //affiche le message contenu dans l'attribut message du lien
-                    //         if (!confirm(message)) {
-                    //             e.preventDefault();
-                    //             e.stopPropagation();
-                    //         }
-                    //     })
-                    // }
                 </script>
 @endsection
 @section('footer')

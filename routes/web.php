@@ -14,24 +14,23 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
-
 Auth::routes(['verify' => true]); //vérification de l'email du nouvel utilisateur
-//Route::get('protege', function () {
-//    return 'affichage de la route protégé';
-//})->middleware('verified');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Utilisateur
+Route::get('/user/edit/{id}', 'UserController@index')->middleware('verified');
+
 
 //Flux
 Route::get('/index', 'FlowController@index')->name('index')->middleware('verified');
-Route::get('/flows/create', 'FlowController@create');
-Route::post('/flows/create', 'FlowController@store');
-Route::get('/flows/show/{id}', 'FlowController@show');
-Route::get('/flows/edit/{id}', 'FlowController@edit');
-Route::post('/flows/edit/{id}', 'FlowController@update');
-Route::get('/flows/delete/{id}', 'FlowController@destroy');
+Route::get('/flows/create', 'FlowController@create')->middleware('verified');
+Route::post('/flows/create', 'FlowController@store')->middleware('verified');
+Route::get('/flows/show/{id}', 'FlowController@show')->middleware('verified');
+Route::get('/flows/edit/{id}', 'FlowController@edit')->middleware('verified');
+Route::post('/flows/edit/{id}', 'FlowController@update')->middleware('verified');
+Route::get('/flows/delete/{id}', 'FlowController@destroy')->middleware('verified');
 
 
 //Catégories de flux

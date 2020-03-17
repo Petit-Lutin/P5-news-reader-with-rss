@@ -57,17 +57,7 @@ class CategoryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $category = null;
-        try {
-            $category = Category::findOrFail($id);
-        } catch (\Exception $exception) {
-            echo $exception->getMessage(); //plus tard faire une vue d'erreur
-            die();
-        }
-        return view('categories/edit')->withCategory($category);
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -103,7 +93,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $flows = $category->flows();
-        if ($flows!=null){
+        if ($flows != null) {
             foreach ($flows as $flow) {
                 $flow->delete();
             }
