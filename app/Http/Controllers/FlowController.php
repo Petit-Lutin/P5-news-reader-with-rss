@@ -23,16 +23,12 @@ class FlowController extends Controller
      */
     public function index()
     {
-//        $flows = Flow::orderBy('name')->get();
         $user = Auth::user();
         $categories = $user->categoriesOrderBy; //les catégories sont spécifiques à un utilisateurs
-//        dd($categories);
-//        $categories = Category::orderBy('name')->get();
         foreach ($categories as $category) {
-            $category->flows;
+            $category->flowsOrderBy;
         }
         return view('index')
-//            ->withFlows($flows)
             ->withCategories($categories)
             ->withJsonCategories(json_encode($categories));
     }
@@ -95,13 +91,12 @@ class FlowController extends Controller
     {
         $user = Auth::user();
         $categories = $user->categoriesOrderBy;
-//        $categories = Category::orderBy('name')->get();
 
         $flow = null;
         try {
             $flow = Flow::findOrFail($id);
         } catch (\Exception $exception) {
-            echo $exception->getMessage(); //todo: plus tard faire une vue d'erreur
+            echo $exception->getMessage();
             die();
         }
         return view('flows/edit')
@@ -122,7 +117,7 @@ class FlowController extends Controller
         try {
             $flow = Flow::findOrFail($id);
         } catch (\Exception $exception) {
-            echo $exception->getMessage(); //todo: faire une vue d'erreur
+            echo $exception->getMessage();
             die();
         }
         $inputs = $request->all();

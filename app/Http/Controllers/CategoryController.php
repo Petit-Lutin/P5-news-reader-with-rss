@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('auth'); // on vérifie que l'utilisateur est bien connecté
+//    }
+
     public function index()
     {
 

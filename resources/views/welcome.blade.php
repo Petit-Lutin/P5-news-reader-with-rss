@@ -70,14 +70,32 @@
             letter-spacing: .1rem;
             text-decoration: none;
             text-transform: uppercase;
-            margin:50px 0;
+            margin: 50px 0;
         }
 
         .m-b-md {
             margin-bottom: 30px;
         }
-        .explication{
-            margin:50px 0;
+
+        .explication {
+            margin: 50px 0;
+        }
+
+        @media all and (max-width: 500px) {
+            .content{
+                margin: 0 10px;
+            }
+            .title{
+                margin-top: 400px;
+            }
+            #titleApp {
+                font-size: 40px;
+            }
+        }
+        @media all and (max-width: 500px) {
+            .title{
+                margin-top: 450px;
+            }
         }
 
     </style>
@@ -100,7 +118,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Agrégateur de flux RSS <br>
+         <span id="titleApp">Agrégateur de flux RSS</span>  <br>
             <img src="img/favicon.png" alt="logo agrégateur flux RSS">
         </div>
 
@@ -119,18 +137,18 @@
                 </div>
             </div>
         </div>
-                        <div class="links">
-                            <a href="/mentions-legales">Mentions légales</a>
-                            <a href="/politique-confidentialite">Politique de confidentialité</a>
-        {{--                    <a href="https://laravel-news.com">News</a>--}}
-        {{--                    <a href="https://blog.laravel.com">Blog</a>--}}
-        {{--                    <a href="https://nova.laravel.com">Nova</a>--}}
-        {{--                    <a href="https://forge.laravel.com">Forge</a>--}}
-        {{--                    <a href="https://vapor.laravel.com">Vapor</a>--}}
-        {{--                    <a href="https://github.com/laravel/laravel">GitHub</a>--}}
-                        </div>
-{{--        <div class="col text-center"><a href="/mentionslegales">Mentions légales</a></div>--}}
-{{--        <div class="col text-center"><a href="/politique-confidentialite">Politique de confidentialité</a>--}}
+        <div class="links">
+            <a href="/mentions-legales">Mentions légales</a>
+            <a href="/politique-confidentialite">Politique de confidentialité</a>
+            {{--                    <a href="https://laravel-news.com">News</a>--}}
+            {{--                    <a href="https://blog.laravel.com">Blog</a>--}}
+            {{--                    <a href="https://nova.laravel.com">Nova</a>--}}
+            {{--                    <a href="https://forge.laravel.com">Forge</a>--}}
+            {{--                    <a href="https://vapor.laravel.com">Vapor</a>--}}
+            {{--                    <a href="https://github.com/laravel/laravel">GitHub</a>--}}
+        </div>
+        {{--        <div class="col text-center"><a href="/mentionslegales">Mentions légales</a></div>--}}
+        {{--        <div class="col text-center"><a href="/politique-confidentialite">Politique de confidentialité</a>--}}
 
     </div>
 </div>

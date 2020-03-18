@@ -10,18 +10,28 @@ use Illuminate\Support\Facades\Auth;
 
 class RssController extends Controller
 {
+
+    public function __construct()
+    {
+//        $this->middleware('auth'); // on vérifie que l'utilisateur est bien connecté
+    }
+
     public function index()
     {
     }
 
     public function getJson($id)
     {
+
         $user = Auth::user();
         $categories = $user->categoriesOrderBy;
+//        try {
+//            $flow = Flow::findOrFail($id);
+//        } catch (\Exception $exception) {
+//            echo $exception->getMessage();
+//            die();
+//        }
         $flow = Flow::findOrFail($id);
-
-        //todo:vérifier que Auth guest = false (tableau)
-//todo:vérifier que le flux appartient bien à l'utilisateur connecté, remonter aux catégories et à l'utilisateur, Auth::user()->id
         $xml = $flow->url;
 
         // pour définir un user-agent
@@ -29,7 +39,6 @@ class RssController extends Controller
         $context = stream_context_create($opts);
         libxml_set_streams_context($context);
 
-        $flowInfo = []; //flux
         $xmlDoc = new \DOMDocument();
         $xmlDoc->load($xml);
 
@@ -94,5 +103,6 @@ class RssController extends Controller
 
         return response()->json($articles);
     }
+//}
 }
 
