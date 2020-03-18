@@ -13,7 +13,7 @@ class RssController extends Controller
 
     public function __construct()
     {
-//        $this->middleware('auth'); // on vérifie que l'utilisateur est bien connecté
+        $this->middleware('auth'); // on vérifie que l'utilisateur est bien connecté
     }
 
     public function index()
@@ -22,15 +22,9 @@ class RssController extends Controller
 
     public function getJson($id)
     {
-
         $user = Auth::user();
         $categories = $user->categoriesOrderBy;
-//        try {
-//            $flow = Flow::findOrFail($id);
-//        } catch (\Exception $exception) {
-//            echo $exception->getMessage();
-//            die();
-//        }
+
         $flow = Flow::findOrFail($id);
         $xml = $flow->url;
 
@@ -74,7 +68,7 @@ class RssController extends Controller
                 $date = $x->item($i)->getElementsByTagName('pubDate')
                     ->item(0)->childNodes->item(0)->nodeValue;
 
-//date retournée en français
+               //date retournée en français
                 $date = \Carbon\Carbon::parse($date);
                 $date->locale('fr_FR');
                 $item_date = $date->isoFormat('LLLL');
@@ -103,6 +97,5 @@ class RssController extends Controller
 
         return response()->json($articles);
     }
-//}
 }
 

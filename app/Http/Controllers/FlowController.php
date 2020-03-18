@@ -42,7 +42,6 @@ class FlowController extends Controller
     {
         $user = Auth::user();
         $categories = $user->categoriesOrderBy;
-//        $categories = Category::orderBy('name')->get();
         return view('flows/create')->withCategories($categories);
     }
 
@@ -73,12 +72,9 @@ class FlowController extends Controller
     public function show($id) // id
     {
         $flow = Flow::find($id)->get();
-////        return view('flows/show', compact('flow'))
         return View::make('flows/show')
             ->with('flow', $flow);
-//
     }
-
 
     /**
      * Show the form for editing the specified resource.
