@@ -121,7 +121,6 @@
                                 categories:{!!$jsonCategories!!},
                                 currentList: [], // obj littéral qui contient un tableau flows qui contient un tableau news
                                 allNews: [],
-                                // latest: [],
                                 error: false,
                                 show: false,
                                 loaded: false,
@@ -135,30 +134,31 @@
                                     this.modalTitle = message;
                                     this.modalContent = content;
                                     this.href = href;
-                                    console.log(href);
                                 }
                             },
                             mounted() {
 
                                 let toLoad = 0; // au début de l'asynchrone
-                                if (this.categories.length === 0) {
+
+                                if (this.categories.length === 0) { // si pas de catgéorie à afficher, on cache le loader
                                     this.loaded = true;
                                     flow = null;
                                     toLoad = 0;
                                 }
-                                for (let c = 0; c < this.categories.length; c++) {
+                                for (let c = 0; c < this.categories.length; c++) { // on parcourt les catégories
                                     let category = this.categories[c];
 
                                     this.categories[c].allNews = [];
 
-                                    for (let f = 0; f < category.flows_order_by.length; f++) {
+                                    if (category.flows_order_by.length === 0) { //si pas de flux à afficher ou à charger, on cache le loader
+                                        this.loaded = true;
+                                        toLoad = 0;
+                                    }
+
+                                    for (let f = 0; f < category.flows_order_by.length; f++) { // on parcourt les flux
                                         let flow = category.flows_order_by[f];
                                         toLoad++; //compte les flux
 
-                                        if (typeof flow === "undefined") { //si pas de flux à afficher ou à charger, on cache le loader
-                                            this.loaded = true;
-                                            toLoad = 0;
-                                        }
 
                                         axios.get('/getjson/' + flow.id) // Make a request for a user with a given ID, Axios en requête GET
                                             .then((response) => {
@@ -182,7 +182,6 @@
 
                                                 if (toLoad == 0) { //quand tous les flux sont chargés, on peut trier les articles
 
-
                                                     this.loaded = true; // toutes les news sont chargées, on cache le loader
 
                                                     this.empty = false;
@@ -192,8 +191,6 @@
                                                     for (i = 0; i < this.categories.length; i++) {
                                                         this.categories[i].allNews = this.categories[i].allNews.sort((a, b) => new Date(b.article_timestamp) - new Date(a.article_timestamp));
                                                     }
-                                                    // this.latest = this.allNews.splice(0, 5); // les 5 dernières news affichées à part
-                                                    // this.allNews= this.allNews.splice(this.allNews.length, 5); // les 5 dernières news affichées à part
 
                                                     this.currentList = this.allNews;
                                                 }
