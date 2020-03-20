@@ -21,6 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $user=Auth::user()->id;
         $categories = Category::orderBy('name')->get();
         return view('categories/create')->withCategories($categories);
     }
@@ -36,6 +37,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         $category = Category::create($data); //on vérifie que l'utilisateur est bien connecté pour qu'il ne voie que les catégories qui lui appartiennent
+
         return redirect('/index');
     }
 
