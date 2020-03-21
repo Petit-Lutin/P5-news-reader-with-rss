@@ -82,12 +82,14 @@
         }
 
         @media all and (max-width: 500px) {
-            .content{
+            .content {
                 margin: 0 10px;
             }
-            .title{
+
+            .title {
                 margin-top: 400px;
             }
+
             #titleApp {
                 font-size: 40px;
             }
@@ -113,7 +115,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-         <span id="titleApp">Agrégateur de flux RSS</span>  <br>
+            <span id="titleApp">Agrégateur de flux RSS</span> <br>
             <img src="img/favicon.png" alt="logo agrégateur flux RSS">
         </div>
 
@@ -135,16 +137,8 @@
         <div class="links">
             <a href="/mentions-legales">Mentions légales</a>
             <a href="/politique-confidentialite">Politique de confidentialité</a>
-            {{--                    <a href="https://laravel-news.com">News</a>--}}
-            {{--                    <a href="https://blog.laravel.com">Blog</a>--}}
-            {{--                    <a href="https://nova.laravel.com">Nova</a>--}}
-            {{--                    <a href="https://forge.laravel.com">Forge</a>--}}
-            {{--                    <a href="https://vapor.laravel.com">Vapor</a>--}}
-            {{--                    <a href="https://github.com/laravel/laravel">GitHub</a>--}}
+            <a href="https://github.com/Petit-Lutin/P5-news-reader-with-rss">GitHub</a>
         </div>
-        {{--        <div class="col text-center"><a href="/mentionslegales">Mentions légales</a></div>--}}
-        {{--        <div class="col text-center"><a href="/politique-confidentialite">Politique de confidentialité</a>--}}
-
     </div>
 </div>
 
