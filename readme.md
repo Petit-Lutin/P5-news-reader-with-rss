@@ -8,7 +8,7 @@ L'intérêt est de s'abonner aux flux RSS des sites qui nous intéressent (blogs
 
 ### Du point de vue de l'utilisateur·ice
 En créant un compte, l'utilisateur peut ajouter des sites internets et les classer selon différentes catégories.
-Une fois connecté, il pourra choisir de visualiser tous les flux qu'il a enregistrés, seulement ceux d'une catégorie, ou un seul spécifique (en cours).
+Une fois connecté, il pourra choisir de visualiser tous les flux qu'il a enregistrés, seulement ceux d'une catégorie, ou un seul spécifique.
 
 ### Du point de vue de développeur·se
 Partie backend en PHP avec le framework Laravel :
@@ -31,7 +31,7 @@ The interest of receiving RSS feed is to be kept informed of new articles, wheth
 ## How does it work ?
 
 ### From the user point of view
-The user creates an account, which enables him/her  to add RSS feeds sorting them by catgeories. When logged, he or she can display all the feeds, only the ones in a specific category, or only one feed (work in progress).
+The user creates an account, which enables him/her  to add RSS feeds sorting them by catgeories. When logged, he or she can display all the feeds, only the ones in a specific category, or only one feed.
 
 ### From the developper point of view
 Backend in PHP with Laravel framework:
