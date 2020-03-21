@@ -92,11 +92,6 @@
                 font-size: 40px;
             }
         }
-        @media all and (max-width: 500px) {
-            .title{
-                margin-top: 450px;
-            }
-        }
 
     </style>
 </head>
