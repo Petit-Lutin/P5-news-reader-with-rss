@@ -17,7 +17,7 @@
                             <li>- un pseudo ;</li>
                             <li>- un mot de passe (chiffré donc je n'y ai pas accès).</li>
                         </ul>
-                        Et c'est tout ! Je n'utilise pas de services tiers (Google, Facebook...) pour vous pister.
+                        Et c'est tout ! Je n'utilise pas de services tiers (Google Analytics, Facebook...) pour vous pister.
                         <hr>
 
 
