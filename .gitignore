@@ -17,3 +17,8 @@ bootstrap
 .gitattributes
 .editorconfig
 config
+public/js
+public/css/app.css
+
+
+

@@ -87,15 +87,6 @@ li {
     -webkit-animation: spin 2s linear infinite; /* assure l'animation sur tous les navigateurs */
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 /* assure l'animation sur tous les navigateurs */
 @-webkit-keyframes spin {
     0% {
@@ -105,6 +96,17 @@ li {
         -webkit-transform: rotate(360deg);
     }
 }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 
 .newCategory {
     display: none;
